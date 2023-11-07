@@ -9,12 +9,7 @@ author: ""
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://example.com"
 
-######################
-# Front end version  #
-######################
-frontend-version: 4.7.0 # What version of the GOV.UK frontend are you using?
-  
-  
+
 ######################
 # Site header        #
 ######################
@@ -30,11 +25,11 @@ header:
   #   url: "/2/"
   #   alt: "Go to Item 2"
 
-  
+
 ######################
 # Site footer        #
-###################### 
-footer: 
+######################
+footer:
   type: "default" # Set to "default"
   ogl: false # Display (true) or disable (false) the OGL licence text
   crown-copyright: false # Display (true) or disable (false) the Crown copyright text and symbol
@@ -45,15 +40,15 @@ footer:
   # - name: "Item 2"
   #   url: "/2/"
   #   alt: "Go to Item 2"
-  
+
 
 ######################
 # Site sidebar       #
-###################### 
-sidebar: 
+######################
+sidebar:
   type: "default" # Set to "default"
-  
-  
+
+
 
 ###############
 # Collections #
@@ -65,7 +60,7 @@ collections:
   pages:
     output: true
     permalink: /:path/
-    
+
 defaults:
   - scope:
       path: ""
@@ -77,7 +72,7 @@ defaults:
         type: "posts"
     values:
       layout: "post"
-             
+
 ##################
 # Build settings #
 ##################
