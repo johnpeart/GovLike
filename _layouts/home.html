@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<h1 class="govuk-heading-xl govuk-!-font-size-80">
+	{% if site.caption %}<span class="govuk-caption-xl govuk-!-font-size-36">{{ site.caption }}</span>{% endif %}
+	{{ site.title | default: 'GovLike' }}
+</h1>
+
+<div class="govuk-grid-row">
+
+	<div class="govuk-grid-column-two-thirds">
+		
+		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
+
+		{% for page in paginator.posts %}
+		<article>
+			<h2 class="govuk-heading-m">
+				<a class="govuk-link" href="{{ page.url }}">
+					{{ page.title }}
+				</a>
+			</h2>
+			<span class="govuk-caption-m">
+				<time datetime="{{ page.date | date: '%Y-%m-%d' }}" lang="en">{{ page.date | date: '%d %B %y' }}</time>
+				<span aria-hidden="true"> — </span>
+				{{ page.author | default: 'page.author' }}
+			</span>
+			{% if page.image %}
+			<img src="{{ page.image.url }}" class="govuk-!-margin-top-4 govuk-!-margin-bottom-4" alt="{{ page.image.alt }}">
+			{% endif %}
+			<p class="govuk-body">{{ page.excerpt | replace: '<p>', '<p class="govuk-body">' | truncate: 160 }}</p>
+		</article>
+		<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+		{% endfor %}
+		
+		{% include pagination.html %}
+		
+	</div>
+	
+	{% include sidebar/index.html %}
+	
+</div>

@@ -1,0 +1,28 @@
+{% if site.footer.type == 'default' %}
+	{% include footer/default.html %}
+{% else %}
+<div class="govuk-width-container ">
+	<div class="govuk-notification-banner" role="region"
+		aria-labelledby="govuk-notification-banner-title"
+		data-module="govuk-notification-banner">
+		<div class="govuk-notification-banner__header">
+			<h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+				Important
+			</h2>
+		</div>
+		<div class="govuk-notification-banner__content">
+			<p class="govuk-notification-banner__heading">
+				Footer type not set
+			</p>
+			<p class="govuk-body">You have not set the footer type in the site settings.</p>
+			<p class="govuk-body">Go to <strong>_config.yml</strong> and set:</p>
+			<pre>footer:
+  type: your-choice</pre>
+			<p class="govuk-body">The options are:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li><strong>default</strong> – use the default footer without links</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endif %}

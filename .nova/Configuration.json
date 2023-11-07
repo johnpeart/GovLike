@@ -1,0 +1,7 @@
+{
+  "workspace.color" : 14,
+  "workspace.name" : "GovLike",
+  "workspace.preview_append_paths" : false,
+  "workspace.preview_type" : "custom",
+  "workspace.preview_url" : "localhost:4000"
+}

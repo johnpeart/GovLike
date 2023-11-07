@@ -1,0 +1,112 @@
+######################
+# Site configuration #
+######################
+title: "GovLike"
+caption: "Blog"
+description: "A basic Jekyll theme built on the GOV.UK Design System"
+author: ""
+
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://example.com"
+
+######################
+# Front end version  #
+######################
+frontend-version: 4.7.0 # What version of the GOV.UK frontend are you using?
+  
+  
+######################
+# Site header        #
+######################
+header:
+  type: "default" # Set to "default", "service-name" or "service-name-with-navigation" to change the header
+  site-name: "GovLike" # Appears in the header, regardless of style
+  service-name: "Service name" # Appears in the header, if site.header.type is set to "service-name" or "service-name-with-navigation"
+  # links:
+  # - name: "Item 1"
+  #   url: "/"
+  #   alt: "Go to Item 1"
+  # - name: "Item 2"
+  #   url: "/2/"
+  #   alt: "Go to Item 2"
+
+  
+######################
+# Site footer        #
+###################### 
+footer: 
+  type: "default" # Set to "default"
+  ogl: false # Display (true) or disable (false) the OGL licence text
+  crown-copyright: false # Display (true) or disable (false) the Crown copyright text and symbol
+  # links:
+  # - name: "Item 1"
+  #   url: "/"
+  #   alt: "Go to Item 1"
+  # - name: "Item 2"
+  #   url: "/2/"
+  #   alt: "Go to Item 2"
+  
+
+######################
+# Site sidebar       #
+###################### 
+sidebar: 
+  type: "default" # Set to "default"
+  
+  
+
+###############
+# Collections #
+###############
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+  pages:
+    output: true
+    permalink: /:path/
+    
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - scope:
+        path: ""
+        type: "posts"
+    values:
+      layout: "post"
+             
+##################
+# Build settings #
+##################
+paginate: 5
+paginate_path: "/:num/"
+permalink: pretty
+markdown: kramdown
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+future: false
+highlighter: true
+sass:
+  sass_dir: _sass
+
+plugins:
+- jekyll-paginate
+- jekyll-remote-theme
+- jekyll-sitemap
+- jekyll-feed
+- jekyll-redirect-from
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

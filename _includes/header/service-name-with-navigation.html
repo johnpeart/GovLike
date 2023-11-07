@@ -1,0 +1,38 @@
+<header class="govuk-header " role="banner" data-module="govuk-header">
+	<div class="govuk-header__container govuk-width-container">
+		<div class="govuk-header__logo">
+			<a href="{{ site.url | append: site.baseurl }}" class="govuk-header__link govuk-header__link--homepage">
+				<span class="govuk-header__logotype">
+					<span class="govuk-header__logotype-text">
+						{{ site.header.site-name }}
+					</span>
+				</span>
+			</a>
+		</div>
+		<div class="govuk-header__content">
+			<a href="#" class="govuk-header__link govuk-header__service-name">
+				{{ site.header.service-name }}
+			</a>
+			<nav aria-label="Menu" class="govuk-header__navigation ">
+				<button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu" hidden>Menu</button>
+				<ul id="navigation" class="govuk-header__navigation-list">
+					{% for item in site.header.links %}
+					{% if page.url == item.url %}
+					<li class="govuk-header__navigation-item govuk-header__navigation-item--active">
+						<a class="govuk-header__link" href="{{ item.url }}" title="{{ item.alt }}">
+							{{ item.name }}
+						</a>
+					</li>
+					{% else %}
+					<li class="govuk-header__navigation-item">
+						<a class="govuk-header__link" href="{{ item.url }}" title="{{ item.alt }}">
+							{{ item.name }}
+						</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
