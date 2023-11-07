@@ -4,8 +4,8 @@
 
 		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
 		<h1 class="govuk-heading-m">About us</h1>
-		{{ site.description
-			| default: 'You can set the sidebar description using the `site.description` setting in `_config.yml`.'
+		{{ site.sidebar.description
+			| default: site.description
 			| markdownify
 			| replace: '<p>', '<p class="govuk-body">'
 			| replace: '<h1', '<h1 class="govuk-heading-l" '

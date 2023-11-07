@@ -47,7 +47,7 @@ footer:
 ######################
 sidebar:
   type: "default" # Set to "default"
-
+  description: "A basic Jekyll theme built on the GOV.UK Design System."
 
 
 ###############
