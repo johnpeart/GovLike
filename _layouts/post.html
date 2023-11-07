@@ -10,43 +10,50 @@ layout: default
 <div class="govuk-grid-row">
 
 	<div class="govuk-grid-column-two-thirds">
-	
+
 		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
-		
+
 		<article>
-	
+
 		<h1 class="govuk-heading-xl">{{ page.title }}</h1>
-			
+
 		<p class="govuk-caption-m">
 			<time datetime="{{ page.date | date: '%Y-%m-%d' }}" lang="en">{{ page.date | date: '%d %B %y' }}</time>
 			<span aria-hidden="true"> — </span>
 			{{ page.author | default: 'page.author' }}
 		</p>
-		
+
 		{% if page.image %}
+		{% if page.image.caption or page.image.source %}
+		<figure>
+			<img src="{{ page.image.url }}" class="govuk-!-margin-bottom-4" alt="{{ page.image.alt }}">
+			<figcaption class="govuk-body-s">{{ page.image.caption }}
+				{%- if page.image.source %} <strong>Source:</strong> {{ page.image.source }}{% endif -%}
+			</figcaption>
+			<hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-6 govuk-section-break--visible">
+		</figure>
+		{% else %}
 		<img src="{{ page.image.url }}" class="govuk-!-margin-bottom-4" alt="{{ page.image.alt }}">
-		{% if page.image.caption %}
-		<p class="govuk-body-s">{{ page.image.caption }}</p>
-		<hr class="govuk-section-break govuk-section-break--m govuk-!-margin-bottom-6 govuk-section-break--visible">
 		{% endif %}
 		{% endif %}
 
-		
-		{{ page.content 
-			| replace: '<p>', '<p class="govuk-body">' 
-			| replace: '<h1', '<h1 class="govuk-heading-l" ' 
-			| replace: '<h2', '<h2 class="govuk-heading-m" ' 
-			| replace: '<h3', '<h3 class="govuk-heading-s" ' 
+
+
+		{{ page.content
+			| replace: '<p>', '<p class="govuk-body">'
+			| replace: '<h1', '<h1 class="govuk-heading-l" '
+			| replace: '<h2', '<h2 class="govuk-heading-m" '
+			| replace: '<h3', '<h3 class="govuk-heading-s" '
 			| replace: '<a ', '<a class="govuk-link" '
 			| replace: '<ul>', '<ul class="govuk-list govuk-list--bullet">'
-			| replace: '<ol>', '<ul class="govuk-list govuk-list--number">'  
+			| replace: '<ol>', '<ul class="govuk-list govuk-list--number">'
 			| replace: '<blockquote>', '<blockquote class="govuk-inset-text">'
 		}}
-		
+
 		</article>
-		
+
 	</div>
-	
+
 	{% include sidebar/index.html %}
-	
+
 </div>
