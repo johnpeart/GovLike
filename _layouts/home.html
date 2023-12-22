@@ -2,17 +2,28 @@
 layout: default
 ---
 
-<h1 class="govuk-heading-xl govuk-!-font-size-80">
-	{% if site.caption %}<span class="govuk-caption-xl govuk-!-font-size-36">{{ site.caption }}</span>{% endif %}
+<h1 class="govuk-heading-xl">
+	{% if site.caption %}<span class="govuk-caption-xl">{{ site.caption }}</span>{% endif %}
 	{{ site.title | default: 'GovLike' }}
 </h1>
 
 <div class="govuk-grid-row">
 
 	<div class="govuk-grid-column-two-thirds">
-		
+
 		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
 
+		{% if paginator.total_posts == null %}
+
+		<p class="govuk-body"> This is a simple theme for Jekyll based on the <a href="https://design-system.service.gov.uk">GOV.UK Design System</a>, for use as a simple blog. It takes the Sass files from the design system, and select HTML components to give a similar look to GOV.UK, but without GOV.UK specific design flourishs like the Crown symbol or Royal crest.</p>
+
+		<p class="govuk-body">Please refer to the <a href="https://github.com/johnpeart/govlike" title="Go to Github to read the README file">README</a> for setup instructions.</p>
+
+		<div class="govuk-inset-text">
+			<p class="govuk-body">These instructions will disappear after you have created your first post in the <code>_posts</code> folder.</p>
+		</div>
+
+		{% endif %}
 		{% for page in paginator.posts %}
 		<article>
 			<h2 class="govuk-heading-m">
@@ -32,11 +43,11 @@ layout: default
 		</article>
 		<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 		{% endfor %}
-		
+
 		{% include pagination.html %}
-		
+
 	</div>
-	
+
 	{% include sidebar/index.html %}
-	
+
 </div>

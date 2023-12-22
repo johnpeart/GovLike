@@ -30,22 +30,22 @@ params:
   - name: label
     type: object
     required: true
-    description: Options for the label component.
+    description: The label used by the textarea component.
     isComponent: true
   - name: hint
     type: object
     required: false
-    description: Options for the hint component.
+    description: Can be used to add a hint to the textarea component.
     isComponent: true
   - name: errorMessage
     type: object
     required: false
-    description: Options for the error message component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
+    description: Can be used to add an error message to the textarea component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
     isComponent: true
   - name: formGroup
     type: object
     required: false
-    description: Options for the form-group wrapper.
+    description: Additional options for the form group containing the textarea component.
     params:
       - name: classes
         type: string
@@ -58,7 +58,7 @@ params:
   - name: autocomplete
     type: string
     required: false
-    description: Attribute to [identify input purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html), for example `postal-code` or `username`. See [autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) for full list of attributes that can be used.
+    description: Attribute to [identify input purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html), for example `"street-address"`. See [autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) for full list of attributes that can be used.
   - name: attributes
     type: object
     required: false
@@ -66,13 +66,13 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       name: more-detail
       id: more-detail
       label:
         text: Can you provide more detail?
   - name: with hint
-    data:
+    options:
       name: more-detail
       id: more-detail
       label:
@@ -81,7 +81,7 @@ examples:
         text: Don't include personal or financial information, eg your National Insurance number or credit card details.
 
   - name: with error message
-    data:
+    options:
       name: no-ni-reason
       id: no-ni-reason
       label:
@@ -90,7 +90,7 @@ examples:
         text: You must provide an explanation
 
   - name: with default value
-    data:
+    options:
       id: full-address
       name: address
       value: |
@@ -101,7 +101,7 @@ examples:
         text: Full address
 
   - name: with custom rows
-    data:
+    options:
       id: full-address
       name: address
       label:
@@ -109,7 +109,7 @@ examples:
       rows: 8
 
   - name: with label as page heading
-    data:
+    options:
       id: textarea-with-page-heading
       name: address
       label:
@@ -118,7 +118,7 @@ examples:
         isPageHeading: true
 
   - name: with optional form-group classes
-    data:
+    options:
       id: textarea-with-page-heading
       name: address
       label:
@@ -127,7 +127,7 @@ examples:
         classes: extra-class
 
   - name: with autocomplete attribute
-    data:
+    options:
       id: textarea-with-autocomplete-attribute
       name: address
       label:
@@ -135,7 +135,7 @@ examples:
       autocomplete: street-address
 
   - name: with spellcheck enabled
-    data:
+    options:
       label:
         text: Spellcheck is enabled
       id: textarea-with-spellcheck-enabled
@@ -143,7 +143,7 @@ examples:
       spellcheck: true
 
   - name: with spellcheck disabled
-    data:
+    options:
       label:
         text: Spellcheck is disabled
       id: textarea-with-spellcheck-disabled
@@ -153,7 +153,7 @@ examples:
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
     hidden: true
-    data:
+    options:
       id: with-classes
       name: with-classes
       label:
@@ -161,7 +161,7 @@ examples:
       classes: app-textarea--custom-modifier
   - name: attributes
     hidden: true
-    data:
+    options:
       id: with-attributes
       name: with-attributes
       label:
@@ -170,35 +170,35 @@ examples:
         data-attribute: my data value
   - name: with describedBy
     hidden: true
-    data:
+    options:
       id: with-describedby
       name: with-describedby
       label:
         text: With describedBy
-      describedBy: some-id
+      describedBy: test-target-element
   - name: with hint and described by
     hidden: true
-    data:
+    options:
       id: with-hint-describedby
       name: with-hint-describedby
       label:
         text: With hint and describedBy
-      describedBy: some-id
+      describedBy: test-target-element
       hint:
         text: It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
   - name: with error message and described by
     hidden: true
-    data:
+    options:
       name: textarea-with-error
       label:
         text: Textarea with error
-      describedBy: some-id
+      describedBy: test-target-element
       id: textarea-with-error
       errorMessage:
         text: Error message
   - name: with hint and error message
     hidden: true
-    data:
+    options:
       id: with-hint-error
       name: with-hint-error
       label:
@@ -209,12 +209,12 @@ examples:
         text: Hint
   - name: with hint, error message and described by
     hidden: true
-    data:
+    options:
       id: with-hint-error-describedby
       name: with-hint-error-describedby
       label:
         text: With hint, error and describedBy
-      describedBy: some-id
+      describedBy: test-target-element
       errorMessage:
         text: Error message
       hint:

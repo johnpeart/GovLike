@@ -3,20 +3,20 @@ layout: default
 ---
 
 <h1 class="govuk-heading-xl govuk-!-font-size-80">
-	{% if site.caption %}<span class="govuk-caption-xl govuk-!-font-size-36">{{ site.caption }}</span>{% endif %}
+	{% if site.caption %}<span class="govuk-caption-xl">{{ site.caption }}</span>{% endif %}
 	{{ site.title | default: 'GovLike' }}
 </h1>
 
 <div class="govuk-grid-row">
 
 	<div class="govuk-grid-column-two-thirds">
-	
+
 		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
-		
+
 		<article>
-	
+
 		<h1 class="govuk-heading-xl">{{ page.title }}</h1>
-		
+
 		{% if page.image %}
 		<img src="{{ page.image.url }}" class="govuk-!-margin-bottom-4" alt="{{ page.image.alt }}">
 		{% if page.image.caption %}
@@ -25,20 +25,22 @@ layout: default
 		{% endif %}
 		{% endif %}
 
-		
-		{{ page.content 
-			| replace: '<p>', '<p class="govuk-body">' 
-			| replace: '<h1', '<h1 class="govuk-heading-l" ' 
-			| replace: '<h2', '<h2 class="govuk-heading-m" ' 
-			| replace: '<h3', '<h3 class="govuk-heading-s" ' 
+
+		{{ page.content
+			| markdownify
+			| replace: '<p>', '<p class="govuk-body">'
+			| replace: '<h1', '<h1 class="govuk-heading-l" '
+			| replace: '<h2', '<h2 class="govuk-heading-m" '
+			| replace: '<h3', '<h3 class="govuk-heading-s" '
 			| replace: '<a ', '<a class="govuk-link" '
 			| replace: '<ul>', '<ul class="govuk-list govuk-list--bullet">'
-			| replace: '<ol>', '<ul class="govuk-list govuk-list--number">'  
-			| replace: '<blockquote>', '<blockquote class="govuk-inset-text">'
+			| replace: '<ol>', '<ul class="govuk-list govuk-list--number">'
+			| replace: '<blockquote>', '<div class="govuk-inset-text">'
+			| replace: '</blockquote>', '</div>'
 		}}
-		
+
 		</article>
-		
+
 	</div>
-	
+
 </div>

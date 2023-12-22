@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Label', () => {
   let examples
@@ -10,13 +9,6 @@ describe('Label', () => {
   })
 
   describe('by default', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('label', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders a label element', () => {
       const $ = render('label', examples.default)
 
@@ -50,7 +42,9 @@ describe('Label', () => {
       const $ = render('label', examples['html as text'])
 
       const labelText = $('.govuk-label').html().trim()
-      expect(labelText).toEqual('National Insurance number, &lt;em&gt;NINO&lt;/em&gt;')
+      expect(labelText).toEqual(
+        'National Insurance number, &lt;em&gt;NINO&lt;/em&gt;'
+      )
     })
 
     it('allows label HTML to be passed un-escaped', () => {
@@ -64,7 +58,7 @@ describe('Label', () => {
       const $ = render('label', examples.for)
 
       const labelForAttr = $('.govuk-label').attr('for')
-      expect(labelForAttr).toEqual('#dummy-input')
+      expect(labelForAttr).toEqual('test-target-element')
     })
 
     it('can be nested inside an H1 using isPageHeading', () => {

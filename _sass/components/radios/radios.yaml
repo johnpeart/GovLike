@@ -2,22 +2,22 @@ params:
   - name: fieldset
     type: object
     required: false
-    description: Options for the fieldset component (for example legend).
+    description: The fieldset used by the radios component.
     isComponent: true
   - name: hint
     type: object
     required: false
-    description: Options for the hint component (for example text).
+    description: Can be used to add a hint to the radios component.
     isComponent: true
   - name: errorMessage
     type: object
     required: false
-    description: Options for the error message component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
+    description: Can be used to add an error message to the radios component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
     isComponent: true
   - name: formGroup
     type: object
     required: false
-    description: Options for the form-group wrapper.
+    description: Additional options for the form group containing the radios component.
     params:
       - name: classes
         type: string
@@ -26,15 +26,15 @@ params:
   - name: idPrefix
     type: string
     required: false
-    description: String to prefix ID for each radio item if no ID is specified on each item. If `idPrefix` is not passed, fallback to using the `name` attribute instead.
+    description: Optional prefix. This is used to prefix the `id` attribute for each radio input, hint and error message, separated by `-`. Defaults to the `name` option value.
   - name: name
     type: string
     required: true
-    description: Name attribute for each radio item.
+    description: Name attribute for all radio items.
   - name: items
     type: array
     required: true
-    description: Array of radio items objects.
+    description: The radio items within the radios component.
     params:
       - name: text
         type: string
@@ -55,17 +55,17 @@ params:
       - name: label
         type: object
         required: false
-        description: Provide attributes and classes to each radio item label.
+        description: Additional options for the label used by each radio item within the radios component.
         isComponent: true
       - name: hint
         type: object
         required: false
-        description: Provide hint to each radio item.
+        description: Can be used to add a hint to each radio item within the radios component.
         isComponent: true
       - name: divider
         type: string
         required: false
-        description: Divider text to separate radio items, for example the text 'or'.
+        description: Divider text to separate radio items, for example the text `"or"`.
       - name: checked
         type: boolean
         required: false
@@ -77,7 +77,8 @@ params:
         params:
           - name: html
             type: string
-            description: The HTML to reveal when the radio is checked
+            description: The HTML to reveal when the radio is checked.
+            required: true
       - name: disabled
         type: boolean
         required: false
@@ -111,7 +112,7 @@ accessibilityCriteria: |
 
 examples:
   - name: default
-    data:
+    options:
       name: example-default
       hint:
         text: This includes changing your last name or spelling your name differently.
@@ -122,7 +123,7 @@ examples:
           text: No
 
   - name: inline
-    data:
+    options:
       idPrefix: example
       classes: govuk-radios--inline
       name: example
@@ -139,7 +140,7 @@ examples:
           checked: true
 
   - name: with disabled
-    data:
+    options:
       idPrefix: gov
       name: gov
       fieldset:
@@ -161,7 +162,7 @@ examples:
           disabled: true
 
   - name: with legend as page heading
-    data:
+    options:
       idPrefix: housing-act
       name: housing-act
       fieldset:
@@ -182,7 +183,7 @@ examples:
             For properties that are within a geographical area defined by a local council
 
   - name: with a medium legend
-    data:
+    options:
       idPrefix: housing-act
       name: housing-act
       fieldset:
@@ -202,7 +203,7 @@ examples:
             For properties that are within a geographical area defined by a local council
 
   - name: with a divider
-    data:
+    options:
       idPrefix: example-divider
       name: example
       fieldset:
@@ -218,7 +219,7 @@ examples:
           text: Create an account
 
   - name: with hints on items
-    data:
+    options:
       idPrefix: gov
       name: gov
       fieldset:
@@ -239,7 +240,7 @@ examples:
             text: You’ll have an account if you’ve already proved your identity with either Barclays, CitizenSafe, Digidentity, Experian, Post Office, Royal Mail or SecureIdentity.
 
   - name: without fieldset
-    data:
+    options:
       name: colours
       items:
         - value: red
@@ -250,7 +251,7 @@ examples:
           text: Blue
 
   - name: with fieldset and error message
-    data:
+    options:
       idPrefix: example
       name: example
       errorMessage:
@@ -266,7 +267,7 @@ examples:
           checked: true
 
   - name: with very long option text
-    data:
+    options:
       name: waste
       hint:
         text: Nullam id dolor id nibh ultricies vehicula ut id elit.
@@ -301,7 +302,7 @@ examples:
             Donec sed odio dui. Sed posuere consectetur est at lobortis.
 
   - name: with conditional items
-    data:
+    options:
       idPrefix: how-contacted
       name: how-contacted
       fieldset:
@@ -328,7 +329,7 @@ examples:
               <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
 
   - name: with conditional items with special characters
-    data:
+    options:
       idPrefix: user.profile[contact-prefs]
       name: contact-prefs
       fieldset:
@@ -355,7 +356,7 @@ examples:
               <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
 
   - name: with conditional item checked
-    data:
+    options:
       idPrefix: 'how-contacted-checked'
       name: 'how-contacted-checked'
       fieldset:
@@ -383,7 +384,7 @@ examples:
               <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
 
   - name: prechecked
-    data:
+    options:
       name: example-default
       hint:
         text: This includes changing your last name or spelling your name differently.
@@ -395,7 +396,7 @@ examples:
           checked: true
 
   - name: prechecked using value
-    data:
+    options:
       name: example-default
       items:
         - value: yes
@@ -405,7 +406,7 @@ examples:
       value: no
 
   - name: with conditional items and pre-checked value
-    data:
+    options:
       idPrefix: 'how-contacted-checked'
       name: 'how-contacted-checked'
       fieldset:
@@ -433,7 +434,7 @@ examples:
       value: text
 
   - name: with optional form-group classes showing group error
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -464,7 +465,7 @@ examples:
               <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
 
   - name: small
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -481,7 +482,7 @@ examples:
           text: Text message
 
   - name: small with long text
-    data:
+    options:
       idPrefix: foo
       name: foo
       classes: govuk-radios--small
@@ -514,7 +515,7 @@ examples:
             Donec sed odio dui. Sed posuere consectetur est at lobortis.
 
   - name: small with error
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -533,7 +534,7 @@ examples:
           text: Text message
 
   - name: small with hint
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -552,7 +553,7 @@ examples:
           text: Text message
 
   - name: small with disabled
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -570,7 +571,7 @@ examples:
           disabled: true
 
   - name: small with conditional reveal
-    data:
+    options:
       idPrefix: 'how-contacted-2'
       name: 'how-contacted-2'
       formGroup:
@@ -591,7 +592,7 @@ examples:
           text: Text message
 
   - name: small inline
-    data:
+    options:
       idPrefix: sort
       classes: govuk-radios--small govuk-radios--inline
       name: example
@@ -607,7 +608,7 @@ examples:
           text: created
 
   - name: small inline extreme
-    data:
+    options:
       idPrefix: sort
       classes: govuk-radios--small govuk-radios--inline
       name: example
@@ -637,7 +638,7 @@ examples:
           text: funkiness
 
   - name: small with a divider
-    data:
+    options:
       idPrefix: example-small-divider
       name: example
       fieldset:
@@ -655,7 +656,7 @@ examples:
 
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: with idPrefix
-    data:
+    options:
       name: example-radio
       idPrefix: example-id-prefix
       items:
@@ -665,7 +666,7 @@ examples:
           text: No
   - name: minimal items and name
     hidden: true
-    data:
+    options:
       name: example-name
       items:
         - value: yes
@@ -674,7 +675,7 @@ examples:
           text: No
   - name: with falsey items
     hidden: true
-    data:
+    options:
       name: example-name
       items:
         - value: yes
@@ -685,10 +686,10 @@ examples:
           text: No
   - name: fieldset with describedBy
     hidden: true
-    data:
+    options:
       name: example-name
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: Which option?
       items:
@@ -698,7 +699,7 @@ examples:
           text: No
   - name: attributes
     hidden: true
-    data:
+    options:
       name: example-name
       attributes:
         data-attribute: value
@@ -710,7 +711,7 @@ examples:
           text: No
   - name: items with attributes
     hidden: true
-    data:
+    options:
       name: example-name
       items:
         - value: yes
@@ -725,7 +726,7 @@ examples:
             data-second-attribute: JKL
   - name: with empty conditional
     hidden: true
-    data:
+    options:
       name: example-conditional
       items:
         - value: yes
@@ -736,7 +737,7 @@ examples:
           text: No
   - name: label with classes
     hidden: true
-    data:
+    options:
       name: example-label-classes
       items:
         - value: yes
@@ -745,7 +746,7 @@ examples:
             classes: bold
   - name: with hints on parent and items
     hidden: true
-    data:
+    options:
       name: example-multiple-hints
       fieldset:
         legend:
@@ -763,10 +764,10 @@ examples:
             text: Hint for no option here
   - name: with describedBy and hint
     hidden: true
-    data:
+    options:
       name: example-hint-describedby
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: Have you changed your name?
       hint:
@@ -778,7 +779,7 @@ examples:
           text: No
   - name: with error message
     hidden: true
-    data:
+    options:
       name: example-error-message
       errorMessage:
         text: Please select an option
@@ -789,7 +790,7 @@ examples:
           text: No
   - name: with error message and idPrefix
     hidden: true
-    data:
+    options:
       name: example-error-message
       idPrefix: id-prefix
       errorMessage:
@@ -801,7 +802,7 @@ examples:
           text: No
   - name: with hint and error message
     hidden: true
-    data:
+    options:
       name: example-error-message-hint
       errorMessage:
         text: Please select an option
@@ -817,12 +818,12 @@ examples:
           text: No
   - name: with hint, error message and describedBy
     hidden: true
-    data:
+    options:
       name: example-error-message-hint
       errorMessage:
         text: Please select an option
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: Have you changed your name?
       hint:
@@ -834,7 +835,7 @@ examples:
           text: No
   - name: label with attributes
     hidden: true
-    data:
+    options:
       name: with-label-attributes
       items:
         - value: yes
@@ -845,7 +846,7 @@ examples:
               data-second-attribute: second-value
   - name: fieldset params
     hidden: true
-    data:
+    options:
       name: example-fieldset-params
       fieldset:
         classes: app-fieldset--custom-modifier
@@ -863,7 +864,7 @@ examples:
           text: No
   - name: fieldset with html
     hidden: true
-    data:
+    options:
       name: with-fieldset-html
       fieldset:
         legend:
@@ -875,13 +876,13 @@ examples:
           text: No
   - name: with fieldset, error message and describedBy
     hidden: true
-    data:
+    options:
       idPrefix: example
       name: example
       errorMessage:
         text: Please select an option
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: Have you changed your name?
       items:
@@ -893,7 +894,7 @@ examples:
 
   - name: item checked overrides value
     hidden: true
-    data:
+    options:
       name: colors
       items:
         - value: red

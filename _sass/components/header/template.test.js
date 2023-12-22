@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('header', () => {
   let examples
@@ -10,13 +9,6 @@ describe('header', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('header', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('has a role of `banner`', () => {
       const $ = render('header', examples.default)
 
@@ -47,7 +39,9 @@ describe('header', () => {
       const $component = $('.govuk-header')
       const $container = $component.find('.govuk-header__container')
 
-      expect($container.hasClass('govuk-header__container--full-width')).toBeTruthy()
+      expect(
+        $container.hasClass('govuk-header__container--full-width')
+      ).toBeTruthy()
     })
 
     it('renders custom navigation classes', () => {
@@ -97,7 +91,10 @@ describe('header', () => {
     })
 
     it('does not use a link when no service url is provided', () => {
-      const $ = render('header', examples['with service name but no service url'])
+      const $ = render(
+        'header',
+        examples['with service name but no service url']
+      )
 
       const $component = $('.govuk-header')
       const $serviceName = $component.find('.govuk-header__service-name')
@@ -107,13 +104,6 @@ describe('header', () => {
   })
 
   describe('with navigation', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('header', examples['with navigation'])
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders navigation', () => {
       const $ = render('header', examples['with navigation'])
 
@@ -154,7 +144,10 @@ describe('header', () => {
     })
 
     it('renders navigation label and menu button text when these are both set', () => {
-      const $ = render('header', examples['with custom navigation label and custom menu button text'])
+      const $ = render(
+        'header',
+        examples['with custom navigation label and custom menu button text']
+      )
 
       const $component = $('.govuk-header')
       const $nav = $component.find('nav')
@@ -168,14 +161,18 @@ describe('header', () => {
       const $ = render('header', examples['with navigation'])
 
       const $activeItem = $('li.govuk-header__navigation-item:first-child')
-      expect($activeItem.hasClass('govuk-header__navigation-item--active')).toBeTruthy()
+      expect(
+        $activeItem.hasClass('govuk-header__navigation-item--active')
+      ).toBeTruthy()
     })
 
     it('allows navigation item text to be passed whilst escaping HTML entities', () => {
       const $ = render('header', examples['navigation item with html as text'])
 
       const $navigationLink = $('.govuk-header__navigation-item a')
-      expect($navigationLink.html()).toContain('&lt;em&gt;Navigation item 1&lt;/em&gt;')
+      expect($navigationLink.html()).toContain(
+        '&lt;em&gt;Navigation item 1&lt;/em&gt;'
+      )
     })
 
     it('allows navigation item HTML to be passed un-escaped', () => {
@@ -186,14 +183,20 @@ describe('header', () => {
     })
 
     it('renders navigation item with text without a link', () => {
-      const $ = render('header', examples['navigation item with text without link'])
+      const $ = render(
+        'header',
+        examples['navigation item with text without link']
+      )
 
       const $navigationItem = $('.govuk-header__navigation-item')
       expect($navigationItem.html().trim()).toEqual('Navigation item 1')
     })
 
     it('renders navigation item with html without a link', () => {
-      const $ = render('header', examples['navigation item with html without link'])
+      const $ = render(
+        'header',
+        examples['navigation item with html without link']
+      )
 
       const $navigationItem = $('.govuk-header__navigation-item')
       expect($navigationItem.html()).toContain('<em>Navigation item 1</em>')
@@ -221,13 +224,6 @@ describe('header', () => {
         const $button = $('.govuk-header__menu-button')
 
         expect($button.attr('hidden')).toBeTruthy()
-      })
-      it('renders default label correctly', () => {
-        const $ = render('header', examples['with navigation'])
-
-        const $button = $('.govuk-header__menu-button')
-
-        expect($button.attr('aria-label')).toEqual('Show or hide menu')
       })
       it('allows label to be customised', () => {
         const $ = render('header', examples['with custom menu button label'])
@@ -259,22 +255,19 @@ describe('header', () => {
 
     beforeAll(() => {
       $ = render('header', examples.default)
-      $svg = $('.govuk-header__logotype-crown')
+      $svg = $('.govuk-header__logotype')
     })
 
     it('sets focusable="false" so that IE does not treat it as an interactive element', () => {
       expect($svg.attr('focusable')).toEqual('false')
     })
 
-    it('sets aria-hidden="true" so that it is ignored by assistive technologies', () => {
-      expect($svg.attr('aria-hidden')).toEqual('true')
+    it('sets role="img" so that assistive technologies do not treat it as an embedded document', () => {
+      expect($svg.attr('role')).toEqual('img')
     })
 
-    describe('fallback PNG', () => {
-      it('is invisible to modern browsers', () => {
-        const $fallbackImage = $('.govuk-header__logotype-crown-fallback-image')
-        expect($fallbackImage.length).toEqual(0)
-      })
+    it('has an embedded <title> element to serve as alternative text', () => {
+      expect($svg.html()).toContain('<title>GOV.UK</title>')
     })
   })
 })

@@ -30,22 +30,22 @@ params:
   - name: label
     type: object
     required: true
-    description: Options for the label component.
+    description: The label used by the character count component.
     isComponent: true
   - name: hint
     type: object
     required: false
-    description: Options for the hint component.
+    description: Can be used to add a hint to the character count component.
     isComponent: true
   - name: errorMessage
     type: object
     required: false
-    description: Options for the error message component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
+    description: Can be used to add an error message to the character count component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
     isComponent: true
   - name: formGroup
     type: object
     required: false
-    description: Options for the form-group wrapper.
+    description: Additional options for the form group containing the character count component.
     params:
       - name: classes
         type: string
@@ -66,7 +66,7 @@ params:
   - name: countMessage
     type: object
     required: false
-    description: Options for the count message.
+    description: Additional options for the count message used by the character count component.
     params:
       - name: classes
         type: string
@@ -103,7 +103,7 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       name: more-detail
       id: more-detail
       maxlength: 10
@@ -111,15 +111,17 @@ examples:
         text: Can you provide more detail?
 
   - name: with custom textarea description
-    description: with textarea description translated into Welsh
-    data:
+    description: with textarea description translated into Welsh.
+    options:
       name: custom-textarea-description
       id: custom-textarea-description
       maxlength: 10
+      label:
+        text: Can you provide more detail?
       textareaDescriptionText: Gallwch ddefnyddio hyd at %{count} nod
 
   - name: with hint
-    data:
+    options:
       name: with-hint
       id: with-hint
       maxlength: 10
@@ -130,7 +132,7 @@ examples:
           National Insurance number or credit card details.
 
   - name: with default value
-    data:
+    options:
       id: with-default-value
       name: default-value
       maxlength: 100
@@ -142,7 +144,7 @@ examples:
         NW1 6XE
 
   - name: with default value exceeding limit
-    data:
+    options:
       id: exceeding-characters
       name: exceeding
       maxlength: 10
@@ -156,7 +158,7 @@ examples:
         text: Please do not exceed the maximum allowed limit
 
   - name: with custom rows
-    data:
+    options:
       id: custom-rows
       name: custom
       maxlength: 10
@@ -165,7 +167,7 @@ examples:
       rows: 8
 
   - name: with label as page heading
-    data:
+    options:
       id: textarea-with-page-heading
       name: address
       maxlength: 10
@@ -175,7 +177,7 @@ examples:
         isPageHeading: true
 
   - name: with word count
-    data:
+    options:
       id: word-count
       name: word-count
       maxwords: 10
@@ -183,7 +185,7 @@ examples:
         text: Full address
 
   - name: with threshold
-    data:
+    options:
       id: with-threshold
       name: with-threshold
       maxlength: 10
@@ -192,10 +194,12 @@ examples:
         text: Full address
 
   - name: with translations
-    data:
+    options:
       id: with-translations
       name: with-translations
       maxlength: 10
+      label:
+        text: Full address
       charactersUnderLimitText:
         other: '%{count} characters to go'
         one: 'One character to go'
@@ -214,7 +218,7 @@ examples:
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
     hidden: true
-    data:
+    options:
       id: with-classes
       name: with-classes
       maxlength: 10
@@ -223,7 +227,7 @@ examples:
       classes: app-character-count--custom-modifier
   - name: attributes
     hidden: true
-    data:
+    options:
       id: with-attributes
       name: with-attributes
       maxlength: 10
@@ -233,7 +237,7 @@ examples:
         data-attribute: my data value
   - name: formGroup with classes
     hidden: true
-    data:
+    options:
       id: with-formgroup
       name: with-formgroup
       maxlength: 10
@@ -243,7 +247,7 @@ examples:
         classes: app-character-count--custom-modifier
   - name: custom classes on countMessage
     hidden: true
-    data:
+    options:
       id: with-custom-countmessage-class
       name: with-custom-countmessage-class
       maxlength: 10
@@ -253,7 +257,7 @@ examples:
         classes: app-custom-count-message
   - name: spellcheck enabled
     hidden: true
-    data:
+    options:
       id: with-spellcheck
       name: with-spellcheck
       maxlength: 10
@@ -262,7 +266,7 @@ examples:
       spellcheck: true
   - name: spellcheck disabled
     hidden: true
-    data:
+    options:
       id: without-spellcheck
       name: without-spellcheck
       maxlength: 10
@@ -271,7 +275,7 @@ examples:
       spellcheck: false
   - name: custom classes with error message
     hidden: true
-    data:
+    options:
       id: with-custom-error-class
       name: with-custom-error-class
       maxlength: 10
@@ -282,7 +286,7 @@ examples:
         text: Error message
   - name: with id starting with number
     hidden: true
-    data:
+    options:
       name: more-detail
       id: 1_more-detail
       maxlength: 10
@@ -290,7 +294,7 @@ examples:
         text: Can you provide more detail?
   - name: with id with special characters
     hidden: true
-    data:
+    options:
       id: user1.profile[address]
       name: address
       maxlength: 10
@@ -298,7 +302,7 @@ examples:
         text: Full address
   - name: with textarea maxlength attribute
     hidden: true
-    data:
+    options:
       id: maxlength-should-be-removed
       name: address
       maxlength: 10
@@ -308,14 +312,14 @@ examples:
         text: Full address
   - name: to configure in JavaScript
     hidden: true
-    data:
+    options:
       id: to-configure-in-javascript
       name: address
       label:
         text: Full address
   - name: when neither maxlength nor maxwords are set
     hidden: true
-    data:
+    options:
       id: no-maximum
       name: no-maximum
       label:
@@ -323,7 +327,7 @@ examples:
       textareaDescriptionText: 'No more than %{count} characters'
   - name: when neither maxlength/maxwords nor textarea description are set
     hidden: true
-    data:
+    options:
       id: no-maximum
       name: no-maximum
       label:

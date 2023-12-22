@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Panel', () => {
   let examples
@@ -10,13 +9,6 @@ describe('Panel', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('panel', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders title text', () => {
       const $ = render('panel', examples.default)
       const panelTitle = $('.govuk-panel__title').text().trim()
@@ -51,7 +43,9 @@ describe('Panel', () => {
       const $ = render('panel', examples['title html as text'])
 
       const panelTitle = $('.govuk-panel__title').html().trim()
-      expect(panelTitle).toEqual('Application &lt;strong&gt;not&lt;/strong&gt; complete')
+      expect(panelTitle).toEqual(
+        'Application &lt;strong&gt;not&lt;/strong&gt; complete'
+      )
     })
 
     it('renders title as specified heading level', () => {
@@ -69,7 +63,9 @@ describe('Panel', () => {
     })
 
     it('renders nested components using `call`', () => {
-      const $ = render('panel', {}, '<div class="app-nested-component"></div>')
+      const $ = render('panel', {
+        callBlock: '<div class="app-nested-component"></div>'
+      })
 
       expect($('.govuk-panel .app-nested-component').length).toBeTruthy()
     })
@@ -78,14 +74,18 @@ describe('Panel', () => {
       const $ = render('panel', examples['body html as text'])
 
       const panelBodyText = $('.govuk-panel__body').html().trim()
-      expect(panelBodyText).toEqual('Your reference number&lt;br&gt;&lt;strong&gt;HDJ2123F&lt;/strong&gt;')
+      expect(panelBodyText).toEqual(
+        'Your reference number&lt;br&gt;&lt;strong&gt;HDJ2123F&lt;/strong&gt;'
+      )
     })
 
     it('allows body HTML to be passed un-escaped', () => {
       const $ = render('panel', examples['body html'])
 
       const panelBodyText = $('.govuk-panel__body').html().trim()
-      expect(panelBodyText).toEqual('Your reference number<br><strong>HDJ2123F</strong>')
+      expect(panelBodyText).toEqual(
+        'Your reference number<br><strong>HDJ2123F</strong>'
+      )
     })
 
     it('allows additional classes to be added to the component', () => {

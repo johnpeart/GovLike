@@ -1,19 +1,11 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Error message', () => {
   let examples
 
   beforeAll(async () => {
     examples = await getExamples('error-message')
-  })
-
-  it('default example passes accessibility tests', async () => {
-    const $ = render('error-message', examples.default)
-
-    const results = await axe($.html())
-    expect(results).toHaveNoViolations()
   })
 
   it('renders with a custom id', () => {
@@ -56,7 +48,9 @@ describe('Error message', () => {
     const $ = render('error-message', examples.default)
 
     const $component = $('.govuk-error-message')
-    expect($component.text().trim()).toEqual('Error: Error message about full name goes here')
+    expect($component.text().trim()).toEqual(
+      'Error: Error message about full name goes here'
+    )
   })
 
   it('allows the visually hidden prefix to be customised', () => {
@@ -77,6 +71,8 @@ describe('Error message', () => {
     const $ = render('error-message', examples.translated)
 
     const $component = $('.govuk-error-message')
-    expect($component.html().trim()).toContain('<span class="govuk-visually-hidden">Gwall:</span> Neges gwall am yr enw llawn yn mynd yma')
+    expect($component.html().trim()).toContain(
+      '<span class="govuk-visually-hidden">Gwall:</span> Neges gwall am yr enw llawn yn mynd yma'
+    )
   })
 })

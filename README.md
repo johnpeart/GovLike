@@ -23,7 +23,7 @@ This theme requires the `jekyll-paginate` plugin.
 
 You can control the site header, footer and sidebar through settings in the site `_config.yml` file.
 
-#### Site header
+### Site header
 
 The following settings are available and can be set using nested YAML markup:
 
@@ -42,7 +42,7 @@ header:
 ```
 
 
-#### Site footer
+### Site footer
 
 The following settings are available and can be set using nested YAML markup:
 
@@ -60,7 +60,7 @@ footer:
   #   alt: "Go to Item 2"
 ```
 
-#### Site header
+### Site header
 
 The following settings are available and can be set using nested YAML markup:
 
@@ -101,7 +101,7 @@ author: 'GovLike'
 
 ### Writing posts
 
-Posts should be written in Markdown.
+Posts should be written in Markdown; for example:
 
 ```
 # Heading Level 1
@@ -126,9 +126,13 @@ Paragraph text
 2. ordered list item 2
 3. ordered list item 3
 
-Adding images
+```
 
-![alt text](/assets/image.png "Alt text for the image")
+## Adding images
+
+```
+![alt text](/assets/images/opengraph-image.png "Alt text for the image")
+```
 
 ## Licence
 

@@ -1,19 +1,11 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('back-link component', () => {
   let examples
 
   beforeAll(async () => {
     examples = await getExamples('back-link')
-  })
-
-  it('default example passes accessibility tests', async () => {
-    const $ = render('back-link', examples.default)
-
-    const results = await axe($.html())
-    expect(results).toHaveNoViolations()
   })
 
   it('renders the default example with an anchor, href and text correctly', () => {
@@ -69,7 +61,7 @@ describe('back-link component', () => {
   })
 
   it('renders with inverted colours if specified', () => {
-    const $ = render('back-link', examples['with inverted colours'])
+    const $ = render('back-link', examples.inverse)
 
     const $component = $('.govuk-back-link')
     expect($component.hasClass('govuk-back-link--inverse')).toBeTruthy()

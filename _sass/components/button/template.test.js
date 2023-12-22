@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Button', () => {
   let examples
@@ -10,13 +9,6 @@ describe('Button', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('button', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders the default example', () => {
       const $ = render('button', examples.default)
 
@@ -31,7 +23,7 @@ describe('Button', () => {
       const $ = render('button', examples.attributes)
 
       const $component = $('.govuk-button')
-      expect($component.attr('aria-controls')).toEqual('example-id')
+      expect($component.attr('aria-controls')).toEqual('test-target-element')
       expect($component.attr('data-tracking-dimension')).toEqual('123')
     })
 
@@ -48,7 +40,6 @@ describe('Button', () => {
       const $component = $('.govuk-button')
       expect($component.attr('aria-disabled')).toEqual('true')
       expect($component.attr('disabled')).toEqual('disabled')
-      expect($component.hasClass('govuk-button--disabled')).toBeTruthy()
     })
 
     it('renders with name', () => {
@@ -132,7 +123,7 @@ describe('Button', () => {
       const $ = render('button', examples['link attributes'])
 
       const $component = $('.govuk-button')
-      expect($component.attr('aria-controls')).toEqual('example-id')
+      expect($component.attr('aria-controls')).toEqual('test-target-element')
       expect($component.attr('data-tracking-dimension')).toEqual('123')
     })
 
@@ -141,13 +132,6 @@ describe('Button', () => {
 
       const $component = $('.govuk-button')
       expect($component.hasClass('app-button--custom-modifier')).toBeTruthy()
-    })
-
-    it('renders with disabled', () => {
-      const $ = render('button', examples['link disabled'])
-
-      const $component = $('.govuk-button')
-      expect($component.hasClass('govuk-button--disabled')).toBeTruthy()
     })
   })
 
@@ -164,7 +148,7 @@ describe('Button', () => {
       const $ = render('button', examples['input attributes'])
 
       const $component = $('.govuk-button')
-      expect($component.attr('aria-controls')).toEqual('example-id')
+      expect($component.attr('aria-controls')).toEqual('test-target-element')
       expect($component.attr('data-tracking-dimension')).toEqual('123')
     })
 
@@ -181,7 +165,6 @@ describe('Button', () => {
       const $component = $('.govuk-button')
       expect($component.attr('aria-disabled')).toEqual('true')
       expect($component.attr('disabled')).toEqual('disabled')
-      expect($component.hasClass('govuk-button--disabled')).toBeTruthy()
     })
 
     it('renders with name', () => {
@@ -207,7 +190,7 @@ describe('Button', () => {
       expect($component.get(0).tagName).toEqual('a')
     })
 
-    it('renders a button if you don\'t pass anything', () => {
+    it("renders a button if you don't pass anything", () => {
       const $ = render('button', examples['no type'])
 
       const $component = $('.govuk-button')

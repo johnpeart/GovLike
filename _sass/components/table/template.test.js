@@ -1,19 +1,11 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Table', () => {
   let examples
 
   beforeAll(async () => {
     examples = await getExamples('table')
-  })
-
-  it('passes basic accessibility tests', async () => {
-    const $ = render('table', examples.default)
-
-    const results = await axe($.html())
-    expect(results).toHaveNoViolations()
   })
 
   it('can have additional classes', () => {
@@ -44,7 +36,7 @@ describe('Table', () => {
       const $ = render('table', examples['table with head and caption'])
       const $caption = $('.govuk-table__caption')
 
-      expect($caption.hasClass('govuk-heading-m')).toBeTruthy()
+      expect($caption.hasClass('govuk-table__caption--m')).toBeTruthy()
     })
   })
 
@@ -57,7 +49,8 @@ describe('Table', () => {
       const args = examples['table with head']
       const $ = render('table', args)
 
-      const headings = $('.govuk-table').find('thead tr th')
+      const headings = $('.govuk-table')
+        .find('thead tr th')
         .map((_, e) => $(e).text())
         .get()
 
@@ -73,7 +66,9 @@ describe('Table', () => {
 
       const $th = $('.govuk-table thead tr th')
 
-      expect($th.html()).toEqual('Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;')
+      expect($th.html()).toEqual(
+        'Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;'
+      )
     })
 
     it('allow HTML when passed as HTML', () => {
@@ -134,13 +129,22 @@ describe('Table', () => {
       it('are not included', () => {
         const $ = render('table', examples.default)
 
-        const cells = $('.govuk-table').find('tbody tr td')
+        const cells = $('.govuk-table')
+          .find('tbody tr td')
           .map((_, e) => $(e).text())
           .get()
 
-        expect(cells).toEqual(
-          ['January', '£85', '£95', 'February', '£75', '£55', 'March', '£165', '£125']
-        )
+        expect(cells).toEqual([
+          'January',
+          '£85',
+          '£95',
+          'February',
+          '£75',
+          '£55',
+          'March',
+          '£165',
+          '£125'
+        ])
       })
     })
 
@@ -148,7 +152,8 @@ describe('Table', () => {
       it('are included', () => {
         const $ = render('table', examples['with firstCellIsHeader true'])
 
-        const headings = $('.govuk-table').find('tbody tr th')
+        const headings = $('.govuk-table')
+          .find('tbody tr th')
           .map((_, e) => $(e).text())
           .get()
 
@@ -156,11 +161,16 @@ describe('Table', () => {
       })
 
       it('have HTML escaped when passed as text', () => {
-        const $ = render('table', examples['firstCellIsHeader with html as text'])
+        const $ = render(
+          'table',
+          examples['firstCellIsHeader with html as text']
+        )
 
         const $th = $('.govuk-table tbody tr th')
 
-        expect($th.html()).toEqual('Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;')
+        expect($th.html()).toEqual(
+          'Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;'
+        )
       })
 
       it('allow HTML when passed as HTML', () => {
@@ -196,7 +206,10 @@ describe('Table', () => {
       })
 
       it('can have rowspan specified', () => {
-        const $ = render('table', examples['firstCellIsHeader with rowspan and colspan'])
+        const $ = render(
+          'table',
+          examples['firstCellIsHeader with rowspan and colspan']
+        )
 
         const $th = $('.govuk-table').find('tbody tr th')
 
@@ -204,7 +217,10 @@ describe('Table', () => {
       })
 
       it('can have colspan specified', () => {
-        const $ = render('table', examples['firstCellIsHeader with rowspan and colspan'])
+        const $ = render(
+          'table',
+          examples['firstCellIsHeader with rowspan and colspan']
+        )
 
         const $th = $('.govuk-table').find('tbody tr th')
 
@@ -229,9 +245,15 @@ describe('Table', () => {
     it('can be specified', () => {
       const $ = render('table', examples.default)
 
-      const cells = $('.govuk-table').find('tbody tr')
+      const cells = $('.govuk-table')
+        .find('tbody tr')
         .map((_, tr) => {
-          return [$(tr).find('td').map((_, td) => $(td).text()).get()]
+          return [
+            $(tr)
+              .find('td')
+              .map((_, td) => $(td).text())
+              .get()
+          ]
         })
         .get()
 
@@ -245,9 +267,15 @@ describe('Table', () => {
     it('can be skipped when falsely', () => {
       const $ = render('table', examples['with falsey items'])
 
-      const cells = $('.govuk-table').find('tbody tr')
+      const cells = $('.govuk-table')
+        .find('tbody tr')
         .map((_, tr) => {
-          return [$(tr).find('td').map((_, td) => $(td).text()).get()]
+          return [
+            $(tr)
+              .find('td')
+              .map((_, td) => $(td).text())
+              .get()
+          ]
         })
         .get()
 
@@ -263,7 +291,9 @@ describe('Table', () => {
 
       const $td = $('.govuk-table td')
 
-      expect($td.html()).toEqual('Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;')
+      expect($td.html()).toEqual(
+        'Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;'
+      )
     })
 
     it('allow HTML when passed as HTML', () => {

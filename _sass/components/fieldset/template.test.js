@@ -1,19 +1,11 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('fieldset', () => {
   let examples
 
   beforeAll(async () => {
     examples = await getExamples('fieldset')
-  })
-
-  it('passes accessibility tests', async () => {
-    const $ = render('fieldset', examples.default)
-
-    const results = await axe($.html())
-    expect(results).toHaveNoViolations()
   })
 
   it('creates a fieldset', () => {
@@ -48,7 +40,7 @@ describe('fieldset', () => {
     const $ = render('fieldset', examples['with describedBy'])
 
     const $component = $('.govuk-fieldset')
-    expect($component.attr('aria-describedby')).toEqual('some-id')
+    expect($component.attr('aria-describedby')).toEqual('test-target-element')
   })
 
   it('escapes HTML in the text argument', () => {
@@ -75,11 +67,15 @@ describe('fieldset', () => {
   it('renders html when passed as fieldset content', () => {
     const $ = render('fieldset', examples['html fieldset content'])
 
-    expect($('.govuk-fieldset .my-content').text().trim()).toEqual('This is some content to put inside the fieldset')
+    expect($('.govuk-fieldset .my-content').text().trim()).toEqual(
+      'This is some content to put inside the fieldset'
+    )
   })
 
   it('renders nested components using `call`', () => {
-    const $ = render('fieldset', {}, '<div class="app-nested-component"></div>')
+    const $ = render('fieldset', {
+      callBlock: '<div class="app-nested-component"></div>'
+    })
 
     expect($('.govuk-fieldset .app-nested-component').length).toBeTruthy()
   })

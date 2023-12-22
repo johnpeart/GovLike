@@ -2,103 +2,55 @@ params:
   - name: rows
     type: array
     required: true
-    description: Array of row item objects.
+    description: The rows within the summary list component.
     params:
       - name: classes
         type: string
         required: false
         description: Classes to add to the row `div`.
-      - name: key.text
-        type: string
-        required: true
-        description: If `html` is set, this is not required. Text to use within the each key. If `html` is provided, the `text` option will be ignored.
-      - name: key.html
-        type: string
-        required: true
-      - name: key.classes
-        type: string
-        required: false
-        description: Classes to add to the key wrapper.
-      - name: value.text
-        type: string
-        required: true
-        description: If `html` is set, this is not required. Text to use within the each value. If `html` is provided, the `text` option will be ignored.
-      - name: value.html
-        type: string
-        required: true
-        description: If `text` is set, this is not required. HTML to use within the each value. If `html` is provided, the `text` option will be ignored.
-      - name: value.classes
-        type: string
-        required: false
-        description: Classes to add to the value wrapper.
-      - name: actions.classes
-        type: string
-        required: false
-        description: Classes to add to the actions wrapper.
-      - name: actions.items
-        type: array
-        required: false
-        description: Array of action item objects.
-        params:
-          - name: href
-            type: string
-            required: true
-            description: The value of the link's `href` attribute for an action item.
-          - name: text
-            type: string
-            required: true
-            description: If `html` is set, this is not required. Text to use within each action item. If `html` is provided, the `text` option will be ignored.
-          - name: html
-            type: string
-            required: true
-            description: If `text` is set, this is not required. HTML to use within the each action item. If `html` is provided, the `text` option will be ignored.
-          - name: visuallyHiddenText
-            type: string
-            required: false
-            description: Actions rely on context from the surrounding content so may require additional accessible text. Text supplied to this option is appended to the end. Use `html` for more complicated scenarios.
-          - name: classes
-            type: string
-            required: false
-            description: Classes to add to the action item.
-          - name: attributes
-            type: object
-            required: false
-            description: HTML attributes (for example data attributes) to add to the action item.
-  - name: card
-    type: object
-    required: false
-    description: Options for the summary card. If any of these options are present, a summary card will wrap around the summary list.
-    params:
-      - name: title
+      - name: key
         type: object
-        required: false
-        description: Data for the summary card header.
+        required: true
+        description: The reference content (key) for each row item in the summary list component.
         params:
           - name: text
             type: string
-            required: false
-            description: Text to use within the each title. If `html` is provided, the `text` option will be ignored.
+            required: true
+            description: If `html` is set, this is not required. Text to use within each key. If `html` is provided, the `text` option will be ignored.
           - name: html
             type: string
-            required: false
-            description: Text to use within the each title. If `html` is provided, the `text` option will be ignored.
-          - name: headingLevel
-            type: integer
-            required: false
-            description: Heading level, from `1` to `6`. Default is `2`.
+            required: true
+            description: If `text` is set, this is not required. HTML to use within each key. If `html` is provided, the `text` option will be ignored.
           - name: classes
             type: string
             required: false
-            description: Classes to add to the title wrapper.
+            description: Classes to add to the key wrapper.
+      - name: value
+        type: object
+        required: true
+        description: The value for each row item in the summary list component.
+        params:
+          - name: text
+            type: string
+            required: true
+            description: If `html` is set, this is not required. Text to use within each value. If `html` is provided, the `text` option will be ignored.
+          - name: html
+            type: string
+            required: true
+            description: If `text` is set, this is not required. HTML to use within each value. If `html` is provided, the `text` option will be ignored.
+          - name: classes
+            type: string
+            required: false
+            description: Classes to add to the value wrapper.
       - name: actions
         type: object
         required: false
-        description: Data for the summary card actions
+        description: The action link content for each row item in the summary list component.
         params:
           - name: items
             type: array
             required: false
-            description: Array of action item objects.
+            description: The action link items within the row item of the summary list component.
             params:
               - name: href
                 type: string
@@ -111,7 +63,71 @@ params:
               - name: html
                 type: string
                 required: true
-                description: If `text` is set, this is not required. HTML to use within the each action item. If `html` is provided, the `text` option will be ignored.
+                description: If `text` is set, this is not required. HTML to use within each action item. If `html` is provided, the `text` option will be ignored.
+              - name: visuallyHiddenText
+                type: string
+                required: false
+                description: Actions rely on context from the surrounding content so may require additional accessible text. Text supplied to this option is appended to the end. Use `html` for more complicated scenarios.
+              - name: classes
+                type: string
+                required: false
+                description: Classes to add to the action item.
+              - name: attributes
+                type: object
+                required: false
+                description: HTML attributes (for example data attributes) to add to the action item.
+          - name: classes
+            type: string
+            required: false
+            description: Classes to add to the actions wrapper.
+  - name: card
+    type: object
+    required: false
+    description: Can be used to wrap a summary card around the summary list component. If any of these options are present, a summary card will wrap around the summary list.
+    params:
+      - name: title
+        type: object
+        required: false
+        description: Data for the summary card header.
+        params:
+          - name: text
+            type: string
+            required: false
+            description: Text to use within each title. If `html` is provided, the `text` option will be ignored.
+          - name: html
+            type: string
+            required: false
+            description: Text to use within each title. If `html` is provided, the `text` option will be ignored.
+          - name: headingLevel
+            type: integer
+            required: false
+            description: Heading level, from `1` to `6`. Default is `2`.
+          - name: classes
+            type: string
+            required: false
+            description: Classes to add to the title wrapper.
+      - name: actions
+        type: object
+        required: false
+        description: The action link content shown in the header of each summary card wrapped around the summary list component.
+        params:
+          - name: items
+            type: array
+            required: false
+            description: The action link items shown in the header within the summary card wrapped around the summary list component.
+            params:
+              - name: href
+                type: string
+                required: true
+                description: The value of the link's `href` attribute for an action item.
+              - name: text
+                type: string
+                required: true
+                description: If `html` is set, this is not required. Text to use within each action item. If `html` is provided, the `text` option will be ignored.
+              - name: html
+                type: string
+                required: true
+                description: If `text` is set, this is not required. HTML to use within each action item. If `html` is provided, the `text` option will be ignored.
               - name: visuallyHiddenText
                 type: string
                 required: false
@@ -147,7 +163,7 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -172,7 +188,7 @@ examples:
                 Address line 5
               </p>
   - name: with actions
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -218,7 +234,7 @@ examples:
                 text: Change
                 visuallyHiddenText: contact information
   - name: translated
-    data:
+    options:
       rows:
         - key:
             text: Enw
@@ -261,7 +277,7 @@ examples:
                 html: Golygu<span class="govuk-visually-hidden"> gwybodaeth cyswllt</span>
                 visuallyHiddenText: ''
   - name: with some actions
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -294,7 +310,7 @@ examples:
                 Address line 5
               </p>
   - name: with no first action
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -344,7 +360,7 @@ examples:
                 text: Change
                 visuallyHiddenText: licence period
   - name: no-border
-    data:
+    options:
       classes: govuk-summary-list--no-border
       rows:
         - key:
@@ -370,7 +386,7 @@ examples:
                 Address line 5
               </p>
   - name: no-border on last row
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -396,7 +412,7 @@ examples:
               </p>
           classes: govuk-summary-list__row--no-border
   - name: overridden-widths
-    data:
+    options:
       rows:
         - key:
             classes: govuk-!-width-one-half
@@ -445,7 +461,7 @@ examples:
                 text: Change
                 visuallyHiddenText: contact information
   - name: check-your-answers
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -532,7 +548,7 @@ examples:
                 text: Change
                 visuallyHiddenText: licence period
   - name: extreme
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -711,7 +727,7 @@ examples:
               - href: '#'
                 text: Format
   - name: as a summary card with a text header
-    data:
+    options:
       card:
         title:
           text: Undergraduate teaching assistant
@@ -725,7 +741,7 @@ examples:
           value:
             text: 13/08/1980
   - name: as a summary card with a custom header level
-    data:
+    options:
       card:
         title:
           text: Undergraduate teaching assistant
@@ -740,7 +756,7 @@ examples:
           value:
             text: 13/08/1980
   - name: as a summary card with a html header
-    data:
+    options:
       card:
         title:
           html: <em>Undergraduate teaching assistant</em>
@@ -754,7 +770,7 @@ examples:
           value:
             text: 13/08/1980
   - name: as a summary card with actions
-    data:
+    options:
       card:
         title:
           text: Undergraduate teaching assistant
@@ -774,7 +790,7 @@ examples:
           value:
             text: 13/08/1980
   - name: as a summary card with actions plus summary list actions
-    data:
+    options:
       card:
         title:
           text: Undergraduate teaching assistant
@@ -809,7 +825,7 @@ examples:
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: attributes
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -820,7 +836,7 @@ examples:
         data-attribute-2: value-2
   - name: with falsey values
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -835,7 +851,7 @@ examples:
             text: Firstname2 Lastname2
   - name: key with html
     hidden: true
-    data:
+    options:
       rows:
         - key:
             html: <b>Name</b>
@@ -843,7 +859,7 @@ examples:
             html: <strong>Firstname Lastname</strong>
   - name: key with classes
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -852,7 +868,7 @@ examples:
             text: Firstname Lastname
   - name: value with html
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -860,7 +876,7 @@ examples:
             html: <span>email@email.com</span>
   - name: actions href
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -872,7 +888,7 @@ examples:
                 text: Go to GOV.UK
   - name: actions with html
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -884,7 +900,7 @@ examples:
                 href: '#'
   - name: actions with classes
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -897,7 +913,7 @@ examples:
                 href: '/edit'
   - name: actions with attributes
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -912,7 +928,7 @@ examples:
                   data-test-attribute-2: value-2
   - name: single action with anchor
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -924,7 +940,7 @@ examples:
                 href: '#'
   - name: classes on items
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -937,7 +953,7 @@ examples:
                 classes: govuk-link--no-visited-state
   - name: empty items array
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -947,7 +963,7 @@ examples:
             items: []
   - name: rows with classes
     hidden: true
-    data:
+    options:
       rows:
         - key:
             text: Name
@@ -956,7 +972,7 @@ examples:
           classes: app-custom-class
   - name: summary card with custom classes
     hidden: true
-    data:
+    options:
       card:
         classes: custom-class
       rows:
@@ -970,7 +986,7 @@ examples:
             text: 13/08/1980
   - name: summary card with custom attributes
     hidden: true
-    data:
+    options:
       card:
         attributes:
           data-attribute-1: value-1
@@ -986,7 +1002,7 @@ examples:
             text: 13/08/1980
   - name: summary card with only 1 action
     hidden: true
-    data:
+    options:
       card:
         title:
           text: Undergraduate teaching assistant

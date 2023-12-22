@@ -1,6 +1,6 @@
 @include govuk-exports("govuk/component/accordion") {
   $govuk-accordion-base-colour: govuk-colour("black");
-  $govuk-accordion-hover-colour: govuk-colour("light-grey", $legacy: "grey-3");
+  $govuk-accordion-hover-colour: govuk-colour("light-grey");
   $govuk-accordion-icon-focus-colour: $govuk-focus-colour;
   $govuk-accordion-bottom-border-width: 1px;
 
@@ -35,8 +35,8 @@
     margin-bottom: 0;
   }
 
-  // JavaScript enabled
-  .js-enabled {
+  // GOV.UK Frontend JavaScript enabled
+  .govuk-frontend-supported {
     .govuk-accordion {
       // Border at the bottom of the whole accordion
       border-bottom: $govuk-accordion-bottom-border-width solid $govuk-border-colour;
@@ -89,7 +89,7 @@
       cursor: pointer;
       -webkit-appearance: none;
 
-      @include govuk-media-query ($from: tablet) {
+      @include govuk-media-query($from: tablet) {
         margin-bottom: 14px;
       }
 
@@ -105,7 +105,9 @@
         // The GOV.UK Design System focus state adds a box-shadow to the top and bottom of the
         // button. We add a grey box-shadow on hover too, to make the height of the hover state
         // match the height of the focus state.
-        box-shadow: 0 -2px $govuk-accordion-hover-colour, 0 4px $govuk-accordion-hover-colour;
+        box-shadow:
+          0 -2px $govuk-accordion-hover-colour,
+          0 4px $govuk-accordion-hover-colour;
 
         .govuk-accordion__section-toggle-text {
           color: $govuk-accordion-base-colour;
@@ -116,7 +118,7 @@
           background: $govuk-accordion-base-colour;
         }
 
-        .govuk-accordion-nav__chevron:after {
+        .govuk-accordion-nav__chevron::after {
           color: $govuk-accordion-hover-colour;
         }
       }
@@ -128,7 +130,7 @@
           background: $govuk-accordion-base-colour;
         }
 
-        .govuk-accordion-nav__chevron:after {
+        .govuk-accordion-nav__chevron::after {
           color: $govuk-accordion-icon-focus-colour;
         }
       }
@@ -154,15 +156,8 @@
 
       vertical-align: middle;
 
-      // IE8 fallback of icon
-      @include _govuk-if-ie8 {
-        display: inline-block;
-        max-height: 20px;
-        line-height: 1;
-      }
-
       // Create inner chevron arrow
-      &:after {
+      &::after {
         content: "";
         box-sizing: border-box;
         display: block;
@@ -178,27 +173,12 @@
 
         border-top: govuk-px-to-rem(2px) solid;
         border-right: govuk-px-to-rem(2px) solid;
-
-        // IE8 fallback of icon with HTML symbol
-        @include _govuk-if-ie8 {
-          content: "\25B2"; // "▲"
-          position: relative;
-          border: 0;
-        }
       }
     }
 
     // Rotate icon to create "Down" version
     .govuk-accordion-nav__chevron--down {
       transform: rotate(180deg);
-
-      // IE8 fallback of arrow icon
-      @include _govuk-if-ie8 {
-        &:after {
-          content: "\25BC"; // "▼"
-          transform: none;
-        }
-      }
     }
 
     .govuk-accordion__section-button {
@@ -222,7 +202,7 @@
       cursor: pointer;
       -webkit-appearance: none;
 
-      @include govuk-media-query ($from: tablet) {
+      @include govuk-media-query($from: tablet) {
         padding-bottom: govuk-spacing(2);
       }
 
@@ -244,7 +224,7 @@
           background: $govuk-accordion-base-colour;
         }
 
-        .govuk-accordion-nav__chevron:after {
+        .govuk-accordion-nav__chevron::after {
           color: $govuk-accordion-hover-colour;
         }
       }
@@ -265,7 +245,7 @@
           background: $govuk-accordion-base-colour;
         }
 
-        .govuk-accordion-nav__chevron:after {
+        .govuk-accordion-nav__chevron::after {
           color: $govuk-accordion-icon-focus-colour;
         }
       }
@@ -284,7 +264,7 @@
       padding-bottom: govuk-spacing(3);
       border-bottom: 0;
 
-      @include govuk-media-query ($from: tablet) {
+      @include govuk-media-query($from: tablet) {
         padding-bottom: govuk-spacing(4);
       }
     }
@@ -294,7 +274,7 @@
     .govuk-accordion__section-button:focus .govuk-accordion__section-toggle-focus {
       padding-bottom: 3px;
 
-      @include govuk-media-query ($from: desktop) {
+      @include govuk-media-query($from: desktop) {
         padding-bottom: 2px;
       }
     }

@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Breadcrumbs', () => {
   let examples
@@ -10,13 +9,6 @@ describe('Breadcrumbs', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('breadcrumbs', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders with items', () => {
       const $ = render('breadcrumbs', examples.default)
 
@@ -43,7 +35,10 @@ describe('Breadcrumbs', () => {
 
   describe('custom options', () => {
     it('renders item with text', () => {
-      const $ = render('breadcrumbs', examples['with last breadcrumb as current page'])
+      const $ = render(
+        'breadcrumbs',
+        examples['with last breadcrumb as current page']
+      )
 
       const $item = $('.govuk-breadcrumbs__list-item').last()
       expect($item.text()).toEqual('Travel abroad')
@@ -82,7 +77,9 @@ describe('Breadcrumbs', () => {
       const $ = render('breadcrumbs', examples.classes)
 
       const $component = $('.govuk-breadcrumbs')
-      expect($component.hasClass('app-breadcrumbs--custom-modifier')).toBeTruthy()
+      expect(
+        $component.hasClass('app-breadcrumbs--custom-modifier')
+      ).toBeTruthy()
     })
 
     it('renders with attributes', () => {
@@ -97,11 +94,13 @@ describe('Breadcrumbs', () => {
       const $ = render('breadcrumbs', examples['with collapse on mobile'])
 
       const $component = $('.govuk-breadcrumbs')
-      expect($component.hasClass('govuk-breadcrumbs--collapse-on-mobile')).toBeTruthy()
+      expect(
+        $component.hasClass('govuk-breadcrumbs--collapse-on-mobile')
+      ).toBeTruthy()
     })
 
     it('renders with inverted colours if specified', () => {
-      const $ = render('breadcrumbs', examples['with inverted colours'])
+      const $ = render('breadcrumbs', examples.inverse)
 
       const $component = $('.govuk-breadcrumbs')
       expect($component.hasClass('govuk-breadcrumbs--inverse')).toBeTruthy()

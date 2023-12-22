@@ -2,7 +2,7 @@ params:
   - name: id
     type: string
     required: true
-    description: Must be unique across the domain of your service if `rememberExpanded` is `true` (as the expanded state of individual instances of the component persists across page loads using [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)). Used as an `id` in the HTML for the accordion as a whole, and also as a prefix for the `id`s of the section contents and the buttons that open them, so that those `id`s can be the target of `aria-labelledby` and `aria-control` attributes.
+    description: Must be unique across the domain of your service if `rememberExpanded` is `true` (as the expanded state of individual instances of the component persists across page loads using [session storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)). Used as an `id` in the HTML for the accordion as a whole, and also as a prefix for the `id`s of the section contents and the buttons that open them, so that those `id`s can be the target of `aria-labelledby` and `aria-control` attributes.
   - name: headingLevel
     type: integer
     required: false
@@ -30,7 +30,7 @@ params:
   - name: hideSectionAriaLabelText
     type: string
     required: false
-    description: Text made available to assistive technologies, like screen-readers, as the final part of the toggle's accessible name when the section is expanded. Defaults to 'Hide this section'.
+    description: Text made available to assistive technologies, like screen-readers, as the final part of the toggle's accessible name when the section is expanded. Defaults to `"Hide this section"`.
   - name: showAllSectionsText
     type: string
     required: false
@@ -42,36 +42,51 @@ params:
   - name: showSectionAriaLabelText
     type: string
     required: false
-    description: Text made available to assistive technologies, like screen-readers, as the final part of the toggle's accessible name when the section is collapsed. Defaults to 'Show this section'.
+    description: Text made available to assistive technologies, like screen-readers, as the final part of the toggle's accessible name when the section is collapsed. Defaults to `"Show this section"`.
   - name: items
     type: array
     required: true
-    description: An array of sections within the accordion.
+    description: The sections within the accordion.
     params:
-      - name: heading.text
-        type: string
+      - name: heading
+        type: object
         required: true
-        description: The title of each section. If `heading.html` is supplied, this is ignored.
-      - name: heading.html
-        type: string
-        required: true
-        description: The HTML content of the header for each section. Used as the title for each section. The header is inside the HTML `<button>` element, so you can only add [phrasing content](https://html.spec.whatwg.org/#phrasing-content) to it.
-      - name: summary.text
-        type: string
+        description: The heading of each accordion section.
+        params:
+          - name: text
+            type: string
+            required: true
+            description: If `html` is set, this is not required. The heading text of each section. If `html` is provided, the `text` option will be ignored.
+          - name: html
+            type: string
+            required: true
+            description: If `text` is set, this is not required. The heading HTML content of each section. The header is inside the HTML `<button>` element, so you can only add [phrasing content](https://html.spec.whatwg.org/#phrasing-content) to it. If `html` is provided, the `text` option will be ignored.
+      - name: summary
+        type: object
         required: false
-        description: Text content for summary line. If `summary.html` is supplied, this is ignored.
-      - name: summary.html
-        type: string
-        required: false
-        description: The HTML content for the summary line. The summary line is inside the HTML `<button>` element, so you can only add [phrasing content](https://html.spec.whatwg.org/#phrasing-content) to it.
-      - name: content.text
-        type: string
+        description: The summary line of each accordion section.
+        params:
+          - name: text
+            type: string
+            required: false
+            description: The summary line text content of each section. If `html` is provided, the `text` option will be ignored.
+          - name: html
+            type: string
+            required: false
+            description: The summary line HTML content of each section. The summary line is inside the HTML `<button>` element, so you can only add [phrasing content](https://html.spec.whatwg.org/#phrasing-content) to it. If `html` is provided, the `text` option will be ignored.
+      - name: content
+        type: object
         required: true
-        description: The text content of each section, which is hidden when the section is closed. If `content.html` is supplied, this is ignored.
-      - name: content.html
-        type: string
-        required: true
-        description: The HTML content of each section, which is hidden when the section is closed.
+        description: The content of each accordion section.
+        params:
+          - name: text
+            type: string
+            required: true
+            description: If `html` is set, this is not required. The text content of each section, which is hidden when the section is closed. If `html` is provided, the `text` option will be ignored.
+          - name: html
+            type: string
+            required: true
+            description: If `text` is set, this is not required. The HTML content of each section, which is hidden when the section is closed. If `html` is provided, the `text` option will be ignored.
       - name: expanded
         type: boolean
         required: false
@@ -79,7 +94,7 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       id: default-example
       items:
         - heading:
@@ -95,7 +110,7 @@ examples:
               </ul>
 
   - name: with additional descriptions
-    data:
+    options:
       id: with-descriptions
       items:
         - heading:
@@ -121,7 +136,7 @@ examples:
               </ul>
 
   - name: with long content and description
-    data:
+    options:
       id: with-long-content-and-description
       items:
         - heading:
@@ -144,7 +159,7 @@ examples:
               </ul>
 
   - name: with one section open
-    data:
+    options:
       id: one-section-open-example
       items:
         - heading:
@@ -164,7 +179,7 @@ examples:
               </ul>
 
   - name: with all sections already open
-    data:
+    options:
       id: all-sections-open-example
       items:
         - heading:
@@ -185,7 +200,7 @@ examples:
               </ul>
 
   - name: with focusable elements inside
-    data:
+    options:
       id: with-focusable-elements
       items:
         - heading:
@@ -198,7 +213,7 @@ examples:
             html: <a class="govuk-link" href="#">Link B</a>
 
   - name: with translations
-    data:
+    options:
       id: with-translations
       hideAllSectionsText: Collapse all sections
       showAllSectionsText: Expand all sections
@@ -222,7 +237,7 @@ examples:
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
     hidden: true
-    data:
+    options:
       id: accordion-classes
       classes: myClass
       items:
@@ -232,7 +247,7 @@ examples:
             text: Some content
   - name: attributes
     hidden: true
-    data:
+    options:
       id: accordion-attributes
       attributes:
         data-attribute: value
@@ -243,7 +258,7 @@ examples:
             text: Some content
   - name: custom heading level
     hidden: true
-    data:
+    options:
       id: accordion-heading
       headingLevel: 3
       items:
@@ -253,7 +268,7 @@ examples:
             text: Some content
   - name: heading html
     hidden: true
-    data:
+    options:
       id: accordion-heading-html
       items:
         - heading:
@@ -262,7 +277,7 @@ examples:
             text: Some content
   - name: with falsey values
     hidden: true
-    data:
+    options:
       id: accordion-falsey
       items:
         - heading:
@@ -278,7 +293,7 @@ examples:
             text: Some content
   - name: with remember expanded off
     hidden: true
-    data:
+    options:
       id: accordion-remember-expanded-off
       rememberExpanded: false
       items:

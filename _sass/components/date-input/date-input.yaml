@@ -6,11 +6,11 @@ params:
   - name: namePrefix
     type: string
     required: false
-    description: Optional prefix. This is used to prefix each `item.name` using `-`.
+    description: Optional prefix. This is used to prefix each item `name`, separated by `-`.
   - name: items
     type: array
     required: false
-    description: An array of input objects with name, value and classes.
+    description: The inputs within the date input component.
     params:
       - name: id
         type: string
@@ -31,11 +31,11 @@ params:
       - name: autocomplete
         type: string
         required: false
-        description: Attribute to [identify input purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html), for instance `bday-day`. See [autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) for full list of attributes that can be used.
+        description: Attribute to [identify input purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html), for instance `"bday-day"`. See [autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) for full list of attributes that can be used.
       - name: pattern
         type: string
         required: false
-        description: Attribute to [provide a regular expression pattern](https://www.w3.org/TR/html51/sec-forms.html#the-pattern-attribute), used to match allowed character combinations for the input value.
+        description: Attribute to [provide a regular expression pattern](https://html.spec.whatwg.org/multipage/sec-forms.html#the-pattern-attribute), used to match allowed character combinations for the input value.
       - name: classes
         type: string
         required: false
@@ -47,17 +47,17 @@ params:
   - name: hint
     type: object
     required: false
-    description: Options for the hint component.
+    description: Can be used to add a hint to a date input component.
     isComponent: true
   - name: errorMessage
     type: object
     required: false
-    description: Options for the error message component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
+    description: Can be used to add an error message to the date input component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`.
     isComponent: true
   - name: formGroup
     type: object
     required: false
-    description: Options for the form-group wrapper.
+    description: Additional options for the form group containing the date input component.
     params:
       - name: classes
         type: string
@@ -66,7 +66,7 @@ params:
   - name: fieldset
     type: object
     required: false
-    description: Options for the fieldset component (for example legend).
+    description: Can be used to add a fieldset to the date input component.
     isComponent: true
   - name: classes
     type: string
@@ -79,10 +79,10 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       id: dob
   - name: complete question
-    data:
+    options:
       id: dob
       namePrefix: dob
       fieldset:
@@ -97,8 +97,36 @@ examples:
           classes: govuk-input--width-2
         - name: year
           classes: govuk-input--width-4
+  - name: day and month
+    options:
+      id: bday
+      namePrefix: bday
+      fieldset:
+        legend:
+          text: What is your birthday?
+      hint:
+        text: For example, 5 12
+      items:
+        - name: day
+          classes: govuk-input--width-2
+        - name: month
+          classes: govuk-input--width-2
+  - name: month and year
+    options:
+      id: dob
+      namePrefix: dob
+      fieldset:
+        legend:
+          text: When did you move to this property?
+      hint:
+        text: For example, 3 1980
+      items:
+        - name: month
+          classes: govuk-input--width-2
+        - name: year
+          classes: govuk-input--width-4
   - name: with errors only
-    data:
+    options:
       id: dob-errors
       fieldset:
         legend:
@@ -113,7 +141,7 @@ examples:
         - name: year
           classes: govuk-input--width-4 govuk-input--error
   - name: with errors and hint
-    data:
+    options:
       id: dob-errors
       fieldset:
         legend:
@@ -130,7 +158,7 @@ examples:
         - name: year
           classes: govuk-input--width-4 govuk-input--error
   - name: with error on day input
-    data:
+    options:
       id: dob-day-error
       namePrefix: dob-day-error
       fieldset:
@@ -148,7 +176,7 @@ examples:
         - name: year
           classes: govuk-input--width-4
   - name: with error on month input
-    data:
+    options:
       id: dob-month-error
       namePrefix: dob-month-error
       fieldset:
@@ -166,7 +194,7 @@ examples:
         - name: year
           classes: govuk-input--width-4
   - name: with error on year input
-    data:
+    options:
       id: dob-year-error
       namePrefix: dob-year-error
       fieldset:
@@ -184,7 +212,7 @@ examples:
         - name: year
           classes: govuk-input--width-4 govuk-input--error
   - name: with default items
-    data:
+    options:
       id: dob
       namePrefix: dob
       fieldset:
@@ -193,7 +221,7 @@ examples:
       hint:
         text: For example, 31 3 1980
   - name: with optional form-group classes
-    data:
+    options:
       id: dob
       namePrefix: dob
       fieldset:
@@ -204,7 +232,7 @@ examples:
       formGroup:
         classes: extra-class
   - name: with autocomplete values
-    data:
+    options:
       id: dob-with-autocomplete-attribute
       namePrefix: dob-with-autocomplete
       fieldset:
@@ -223,7 +251,7 @@ examples:
           classes: govuk-input--width-4
           autocomplete: bday-year
   - name: with input attributes
-    data:
+    options:
       id: dob-with-input-attributes
       namePrefix: dob-with-input-attributes
       fieldset:
@@ -248,30 +276,30 @@ examples:
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
     hidden: true
-    data:
+    options:
       id: with-classes
       classes: app-date-input--custom-modifier
   - name: attributes
     hidden: true
-    data:
+    options:
       id: with-attributes
       attributes:
         data-attribute: my data value
   - name: with empty items
     hidden: true
-    data:
+    options:
       id: with-empty-items
       items: []
   - name: custom pattern
     hidden: true
-    data:
+    options:
       id: with-custom-pattern
       items:
         - name: day
           pattern: '[0-8]*'
   - name: custom inputmode
     hidden: true
-    data:
+    options:
       id: with-custom-inputmode
       items:
         - name: day
@@ -279,7 +307,7 @@ examples:
           inputmode: 'text'
   - name: with nested name
     hidden: true
-    data:
+    options:
       id: with-nested-name
       items:
         - name: day[dd]
@@ -287,7 +315,7 @@ examples:
         - name: year[yyyy]
   - name: with id on items
     hidden: true
-    data:
+    options:
       id: with-item-id
       items:
         - id: day
@@ -298,7 +326,7 @@ examples:
           name: year
   - name: suffixed id
     hidden: true
-    data:
+    options:
       id: my-date-input
       items:
         - name: day
@@ -306,7 +334,7 @@ examples:
         - name: year
   - name: with values
     hidden: true
-    data:
+    options:
       id: with-values
       items:
         - id: day
@@ -318,34 +346,34 @@ examples:
           value: 2018
   - name: with hint and describedBy
     hidden: true
-    data:
+    options:
       id: dob-errors
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: What is your date of birth?
       hint:
         text: For example, 31 3 1980
   - name: with error and describedBy
     hidden: true
-    data:
+    options:
       id: dob-errors
       fieldset:
-        describedBy: some-id
+        describedBy: test-target-element
         legend:
           text: What is your date of birth?
       errorMessage:
         text: Error message goes here
   - name: fieldset html
     hidden: true
-    data:
+    options:
       id: with-fieldset-html
       fieldset:
         legend:
           html: What is your <b>date of birth</b>?
   - name: items with classes
     hidden: true
-    data:
+    options:
       id: with-item-classes
       items:
         - name: day
@@ -356,7 +384,7 @@ examples:
           classes: app-date-input__year
   - name: items without classes
     hidden: true
-    data:
+    options:
       id: without-item-classes
       items:
         - name: day

@@ -2,11 +2,11 @@ params:
   - name: text
     type: string
     required: false
-    description: Text to use within the back link component. If `html` is provided, the `text` option will be ignored. Defaults to 'Back'.
+    description: Text to use within the back link component. If `html` is provided, the `text` option will be ignored. Defaults to `"Back"`.
   - name: html
     type: string
     required: false
-    description: HTML to use within the back link component. If `html` is provided, the `text` option will be ignored. Defaults to 'Back'.
+    description: HTML to use within the back link component. If `html` is provided, the `text` option will be ignored. Defaults to `"Back"`.
   - name: href
     type: string
     required: true
@@ -22,38 +22,38 @@ params:
 
 examples:
   - name: default
-    data:
+    options:
       href: '#'
   - name: with custom text
-    data:
+    options:
       href: '#'
       text: Back to home
-  - name: with inverted colours
+  - name: inverse
     previewLayoutModifiers:
       - inverse
-    data:
+    options:
       classes: govuk-back-link--inverse
       href: '#'
 
   # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
     hidden: true
-    data:
+    options:
       classes: app-back-link--custom-class
       href: '#'
   - name: html as text
     hidden: true
-    data:
+    options:
       text: <b>Home</b>
       href: '#'
   - name: html
     hidden: true
-    data:
+    options:
       html: <b>Back</b>
       href: '#'
   - name: attributes
     hidden: true
-    data:
+    options:
       href: '#'
       html: <b>Back to home</b>
       attributes:

@@ -1,6 +1,5 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Warning text', () => {
   let examples
@@ -10,24 +9,19 @@ describe('Warning text', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('warning-text', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders with text', () => {
       const $ = render('warning-text', examples.default)
 
       const $component = $('.govuk-warning-text')
-      expect($component.text()).toContain('You can be fined up to £5,000 if you don’t register.')
+      expect($component.text()).toContain(
+        'You can be fined up to £5,000 if you don’t register.'
+      )
     })
 
     it('renders with default assistive text', () => {
       const $ = render('warning-text', examples.default)
 
-      const $assistiveText = $('.govuk-warning-text__assistive')
+      const $assistiveText = $('.govuk-visually-hidden')
       expect($assistiveText.text()).toEqual('Warning')
     })
 
@@ -44,13 +38,15 @@ describe('Warning text', () => {
       const $ = render('warning-text', examples.classes)
 
       const $component = $('.govuk-warning-text')
-      expect($component.hasClass('govuk-warning-text--custom-class')).toBeTruthy()
+      expect(
+        $component.hasClass('govuk-warning-text--custom-class')
+      ).toBeTruthy()
     })
 
     it('renders custom assistive text', () => {
       const $ = render('warning-text', examples['icon fallback text only'])
 
-      const $assistiveText = $('.govuk-warning-text__assistive')
+      const $assistiveText = $('.govuk-visually-hidden')
       expect($assistiveText.html()).toContain('Some custom fallback text')
     })
 
@@ -68,14 +64,18 @@ describe('Warning text', () => {
       const $ = render('warning-text', examples['html as text'])
 
       const $component = $('.govuk-warning-text')
-      expect($component.html()).toContain('&lt;span&gt;Some custom warning text&lt;/span&gt;')
+      expect($component.html()).toContain(
+        '&lt;span&gt;Some custom warning text&lt;/span&gt;'
+      )
     })
 
     it('renders html', () => {
       const $ = render('warning-text', examples.html)
 
       const $component = $('.govuk-warning-text')
-      expect($component.html()).toContain('<span>Some custom warning text</span>')
+      expect($component.html()).toContain(
+        '<span>Some custom warning text</span>'
+      )
     })
   })
 })

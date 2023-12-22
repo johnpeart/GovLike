@@ -15,16 +15,15 @@
 		<link rel="stylesheet" href="/stylesheets/styles.css">
 	</head>
   <body class="govuk-template__body ">
-		<script>
-	  	document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-		</script>
+		<script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
 		<a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 		{% include header/index.html %}
 		{{ content }}
 		{% include footer/index.html %}
-		<script src="/javascript/govuk-frontend-4.7.0.min.js"></script>
-		<script>
-	  	window.GOVUKFrontend.initAll()
+		<script type="module" src="/javascript/govuk-frontend-5.0.0.min.js"></script>
+		<script type="module">
+			import { initAll } from '/javascript/govuk-frontend-5.0.0.min.js'
+			initAll()
 		</script>
   </body>
 </html>

@@ -1,6 +1,6 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe, htmlWithClassName } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { htmlWithClassName } = require('@govuk-frontend/helpers/tests')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 const WORD_BOUNDARY = '\\b'
 const WHITESPACE = '\\s'
@@ -13,13 +13,6 @@ describe('Select', () => {
   })
 
   describe('by default', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('select', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders with id', () => {
       const $ = render('select', examples.default)
 
@@ -40,11 +33,41 @@ describe('Select', () => {
       expect($items.length).toEqual(3)
     })
 
-    it('renders item with value', () => {
+    it('includes the value attribute', () => {
       const $ = render('select', examples.default)
 
       const $firstItem = $('.govuk-select option:first-child')
       expect($firstItem.attr('value')).toEqual('1')
+    })
+
+    it('includes the value attribute when the value option is an empty string', () => {
+      const $ = render('select', examples['with falsey values'])
+
+      const $firstItem = $('.govuk-select option:nth(0)')
+      expect($firstItem.attr('value')).toEqual('')
+    })
+
+    it('includes the value attribute when the value option is false', () => {
+      const $ = render('select', examples['with falsey values'])
+
+      const $secondItem = $('.govuk-select option:nth(1)')
+      expect($secondItem.attr('value')).toEqual('false')
+    })
+
+    it('includes the value attribute when the value option is 0', () => {
+      const $ = render('select', examples['with falsey values'])
+
+      const $thirdItem = $('.govuk-select option:nth(2)')
+      expect($thirdItem.attr('value')).toEqual('0')
+    })
+
+    it('omits the value attribute if no value option is provided', () => {
+      const $ = render('select', examples['without values'])
+
+      const $firstItem = $('.govuk-select option:first-child')
+      // Ideally we'd test for $firstItem.attr('value') == undefined but it's
+      // broken in Cheerio – https://github.com/cheeriojs/cheerio/issues/3237
+      expect($firstItem.toString()).not.toContain('value')
     })
 
     it('renders item with text', () => {
@@ -65,6 +88,13 @@ describe('Select', () => {
       const $ = render('select', examples['with selected value'])
 
       const $selectedItem = $('option[value="2"]')
+      expect($selectedItem.attr('selected')).toBeTruthy()
+    })
+
+    it('selects options with implicit value using selected value', () => {
+      const $ = render('select', examples['without values with selected value'])
+
+      const $selectedItem = $("option:contains('Green')")
       expect($selectedItem.attr('selected')).toBeTruthy()
     })
 
@@ -97,7 +127,7 @@ describe('Select', () => {
     })
 
     it('renders without falsely items', () => {
-      const $ = render('select', examples['with falsey values'])
+      const $ = render('select', examples['with falsey items'])
 
       const $items = $('.govuk-select option')
       expect($items.length).toEqual(2)
@@ -116,7 +146,7 @@ describe('Select', () => {
       const $ = render('select', examples['with describedBy'])
 
       const $component = $('.govuk-select')
-      expect($component.attr('aria-describedby')).toMatch('some-id')
+      expect($component.attr('aria-describedby')).toMatch('test-target-element')
     })
 
     it('renders with attributes', () => {
@@ -152,14 +182,13 @@ describe('Select', () => {
       const $ = render('select', examples.hint)
 
       const $select = $('.govuk-select')
-      const $hint = $('.govuk-hint')
+      const hintId = $('.govuk-hint').attr('id')
 
-      const hintId = new RegExp(
-        WORD_BOUNDARY + $hint.attr('id') + WORD_BOUNDARY
+      const describedBy = new RegExp(
+        `${WORD_BOUNDARY}${hintId}${WORD_BOUNDARY}`
       )
 
-      expect($select.attr('aria-describedby'))
-        .toMatch(hintId)
+      expect($select.attr('aria-describedby')).toMatch(describedBy)
     })
 
     it('associates the select as "described by" the hint and parent fieldset', () => {
@@ -167,8 +196,7 @@ describe('Select', () => {
 
       const $select = $('.govuk-select')
 
-      expect($select.attr('aria-describedby'))
-        .toMatch('some-id')
+      expect($select.attr('aria-describedby')).toMatch('test-target-element')
     })
   })
 
@@ -183,14 +211,13 @@ describe('Select', () => {
       const $ = render('select', examples.error)
 
       const $input = $('.govuk-select')
-      const $errorMessage = $('.govuk-error-message')
+      const errorMessageId = $('.govuk-error-message').attr('id')
 
-      const errorMessageId = new RegExp(
-        WORD_BOUNDARY + $errorMessage.attr('id') + WORD_BOUNDARY
+      const describedBy = new RegExp(
+        `${WORD_BOUNDARY}${errorMessageId}${WORD_BOUNDARY}`
       )
 
-      expect($input.attr('aria-describedby'))
-        .toMatch(errorMessageId)
+      expect($input.attr('aria-describedby')).toMatch(describedBy)
     })
 
     it('associates the select as "described by" the error message and parent fieldset', () => {
@@ -198,8 +225,7 @@ describe('Select', () => {
 
       const $input = $('.govuk-select')
 
-      expect($input.attr('aria-describedby'))
-        .toMatch('some-id')
+      expect($input.attr('aria-describedby')).toMatch('test-target-element')
     })
 
     it('adds the error class to the select', () => {
@@ -225,12 +251,11 @@ describe('Select', () => {
       const errorMessageId = $('.govuk-error-message').attr('id')
       const hintId = $('.govuk-hint').attr('id')
 
-      const combinedIds = new RegExp(
-        WORD_BOUNDARY + hintId + WHITESPACE + errorMessageId + WORD_BOUNDARY
+      const describedByCombined = new RegExp(
+        `${WORD_BOUNDARY}${hintId}${WHITESPACE}${errorMessageId}${WORD_BOUNDARY}`
       )
 
-      expect($component.attr('aria-describedby'))
-        .toMatch(combinedIds)
+      expect($component.attr('aria-describedby')).toMatch(describedByCombined)
     })
 
     it('associates the select as described by the hint, error message and parent fieldset', () => {
@@ -238,8 +263,9 @@ describe('Select', () => {
 
       const $component = $('.govuk-select')
 
-      expect($component.attr('aria-describedby'))
-        .toMatch('select-2-hint select-2-error')
+      expect($component.attr('aria-describedby')).toMatch(
+        'select-2-hint select-2-error'
+      )
     })
   })
 

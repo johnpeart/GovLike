@@ -1,7 +1,7 @@
 ######################
 # Site configuration #
 ######################
-title: "GovLike"
+title: "GovLike Jekyll theme"
 caption: "Blog"
 description: "A basic Jekyll theme built on the GOV.UK Design System"
 author: ""
@@ -14,16 +14,16 @@ url: "http://example.com"
 # Site header        #
 ######################
 header:
-  type: "default" # Set to "default", "service-name" or "service-name-with-navigation" to change the header
+  type: "service-name-with-navigation" # Set to "default", "service-name" or "service-name-with-navigation" to change the header
   site-name: "GovLike" # Appears in the header, regardless of style
-  service-name: "Service name" # Appears in the header, if site.header.type is set to "service-name" or "service-name-with-navigation"
-  # links:
-  # - name: "Item 1"
-  #   url: "/"
-  #   alt: "Go to Item 1"
-  # - name: "Item 2"
-  #   url: "/2/"
-  #   alt: "Go to Item 2"
+  service-name: "Jekyll theme" # Appears in the header, if site.header.type is set to "service-name" or "service-name-with-navigation"
+  links:
+  - name: "Page title"
+    url: "/"
+    alt: "Go to Page 1"
+  - name: "Page title"
+    url: "/2/"
+    alt: "Go to Page 2"
 
 
 ######################
@@ -47,6 +47,7 @@ footer:
 ######################
 sidebar:
   type: "default" # Set to "default"
+  header: "About this site"
   description: "A basic Jekyll theme built on the GOV.UK Design System."
 
 

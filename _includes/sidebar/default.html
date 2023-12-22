@@ -3,7 +3,7 @@
 	<aside>
 
 		<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4">
-		<h1 class="govuk-heading-m">About us</h1>
+		{% if site.sidebar.header %}<h1 class="govuk-heading-m">{{ site.sidebar.header }}</h1>{% endif %}
 		{{ site.sidebar.description
 			| default: site.description
 			| markdownify
@@ -14,7 +14,8 @@
 			| replace: '<a ', '<a class="govuk-link" '
 			| replace: '<ul>', '<ul class="govuk-list govuk-list--bullet">'
 			| replace: '<ol>', '<ul class="govuk-list govuk-list--number">'
-			| replace: '<blockquote>', '<blockquote class="govuk-inset-text">'
+			| replace: '<blockquote>', '<div class="govuk-inset-text">'
+			| replace: '</blockquote>', '</div>'
 		}}
 		<p class="govuk-body"><a href="/about" class="govuk-link" title="Visit the About Us page">Find out more</a></p>
 

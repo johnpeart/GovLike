@@ -1,19 +1,11 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Details', () => {
   let examples
 
   beforeAll(async () => {
     examples = await getExamples('details')
-  })
-
-  it('default example passes accessibility tests', async () => {
-    const $ = render('details', examples.default)
-
-    const results = await axe($.html())
-    expect(results).toHaveNoViolations()
   })
 
   it('renders a details element', () => {
@@ -53,7 +45,9 @@ describe('Details', () => {
   })
 
   it('renders nested components using `call`', () => {
-    const $ = render('details', {}, '<div class="app-nested-component"></div>')
+    const $ = render('details', {
+      callBlock: '<div class="app-nested-component"></div>'
+    })
 
     expect($('.govuk-details .app-nested-component').length).toBeTruthy()
   })

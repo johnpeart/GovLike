@@ -1,11 +1,5 @@
-/**
- * @jest-environment jsdom
- */
-/* eslint-env jest */
-
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
 
 describe('Exit this page', () => {
   let examples
@@ -15,20 +9,16 @@ describe('Exit this page', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('exit-this-page', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('renders the default example', () => {
       const $ = render('exit-this-page', examples.default)
       const $button = $('.govuk-exit-this-page').find('.govuk-button')
 
       expect($button.hasClass('govuk-button--warning')).toBeTruthy()
-      expect($button.text()).toContain('Exit this page')
+      expect($button.html()).toContain(
+        '<span class="govuk-visually-hidden">Emergency</span> Exit this page'
+      )
       expect($button.attr('href')).toBe('/full-page-examples/announcements')
+      expect($button.attr('rel')).toBe('nofollow noreferrer')
     })
   })
 
@@ -83,8 +73,12 @@ describe('Exit this page', () => {
 
       expect($component.attr('data-i18n.activated')).toBe('Tudalen ymadael')
       expect($component.attr('data-i18n.timed-out')).toBe("Wedi'i amseru")
-      expect($component.attr('data-i18n.press-two-more-times')).toBe("Pwyswch 'Shift' 2 gwaith arall")
-      expect($component.attr('data-i18n.press-one-more-time')).toBe("Pwyswch 'Shift' 1 mwy o amser")
+      expect($component.attr('data-i18n.press-two-more-times')).toBe(
+        "Pwyswch 'Shift' 2 gwaith arall"
+      )
+      expect($component.attr('data-i18n.press-one-more-time')).toBe(
+        "Pwyswch 'Shift' 1 mwy o amser"
+      )
     })
   })
 })

@@ -1,6 +1,6 @@
-const { render } = require('govuk-frontend-helpers/nunjucks')
-const { axe } = require('govuk-frontend-helpers/tests')
-const { getExamples } = require('govuk-frontend-lib/files')
+const { render } = require('@govuk-frontend/helpers/nunjucks')
+const { getExamples } = require('@govuk-frontend/lib/components')
+const { outdent } = require('outdent')
 
 describe('Notification-banner', () => {
   let examples
@@ -10,13 +10,6 @@ describe('Notification-banner', () => {
   })
 
   describe('default example', () => {
-    it('passes accessibility tests', async () => {
-      const $ = render('notification-banner', examples.default)
-
-      const results = await axe($.html())
-      expect(results).toHaveNoViolations()
-    })
-
     it('aria-labelledby attribute matches the title id', () => {
       const $ = render('notification-banner', examples.default)
       const ariaAttr = $('.govuk-notification-banner').attr('aria-labelledby')
@@ -36,7 +29,9 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples.default)
       const $component = $('.govuk-notification-banner')
 
-      expect($component.attr('data-module')).toEqual('govuk-notification-banner')
+      expect($component.attr('data-module')).toEqual(
+        'govuk-notification-banner'
+      )
     })
 
     it('renders header container', () => {
@@ -64,7 +59,9 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples.default)
       const $content = $('.govuk-notification-banner__heading')
 
-      expect($content.html().trim()).toEqual('This publication was withdrawn on 7 March 2014.')
+      expect($content.html().trim()).toEqual(
+        'This publication was withdrawn on 7 March 2014.'
+      )
     })
   })
 
@@ -80,11 +77,16 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples['custom text'])
       const $content = $('.govuk-notification-banner__heading')
 
-      expect($content.html().trim()).toEqual('This publication was withdrawn on 7 March 2014.')
+      expect($content.html().trim()).toEqual(
+        'This publication was withdrawn on 7 March 2014.'
+      )
     })
 
     it('renders custom heading level', () => {
-      const $ = render('notification-banner', examples['custom title heading level'])
+      const $ = render(
+        'notification-banner',
+        examples['custom title heading level']
+      )
       const $title = $('.govuk-notification-banner__title')
 
       expect($title.get(0).tagName).toEqual('h3')
@@ -98,7 +100,10 @@ describe('Notification-banner', () => {
     })
 
     it('renders aria-labelledby attribute matching the title id when role overridden to region', () => {
-      const $ = render('notification-banner', examples['role=alert overridden to role=region, with type as success'])
+      const $ = render(
+        'notification-banner',
+        examples['role=alert overridden to role=region, with type as success']
+      )
       const ariaAttr = $('.govuk-notification-banner').attr('aria-labelledby')
       const titleId = $('.govuk-notification-banner__title').attr('id')
 
@@ -120,14 +125,20 @@ describe('Notification-banner', () => {
     })
 
     it('adds data-disable-auto-focus="true" if disableAutoFocus is true', () => {
-      const $ = render('notification-banner', examples['auto-focus disabled, with type as success'])
+      const $ = render(
+        'notification-banner',
+        examples['auto-focus disabled, with type as success']
+      )
 
       const $component = $('.govuk-notification-banner')
       expect($component.attr('data-disable-auto-focus')).toBe('true')
     })
 
     it('adds data-disable-auto-focus="false" if disableAutoFocus is false', () => {
-      const $ = render('notification-banner', examples['auto-focus explicitly enabled, with type as success'])
+      const $ = render(
+        'notification-banner',
+        examples['auto-focus explicitly enabled, with type as success']
+      )
 
       const $component = $('.govuk-notification-banner')
       expect($component.attr('data-disable-auto-focus')).toBe('false')
@@ -153,13 +164,19 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples['title html as text'])
       const $title = $('.govuk-notification-banner__title')
 
-      expect($title.html().trim()).toEqual('&lt;span&gt;Important information&lt;/span&gt;')
+      expect($title.html().trim()).toEqual(
+        '&lt;span&gt;Important information&lt;/span&gt;'
+      )
     })
 
     it('renders nested components using `call`', () => {
-      const $ = render('notification-banner', {}, '<div class="app-nested-component"></div>')
+      const $ = render('notification-banner', {
+        callBlock: '<div class="app-nested-component"></div>'
+      })
 
-      expect($('.govuk-notification-banner .app-nested-component').length).toBeTruthy()
+      expect(
+        $('.govuk-notification-banner .app-nested-component').length
+      ).toBeTruthy()
     })
 
     it('renders title as html', () => {
@@ -173,14 +190,21 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples['html as text'])
       const $content = $('.govuk-notification-banner__content')
 
-      expect($content.html().trim()).toEqual('<p class="govuk-notification-banner__heading">&lt;span&gt;This publication was withdrawn on 7 March 2014.&lt;/span&gt;</p>')
+      expect($content.html().trim()).toEqual(
+        '<p class="govuk-notification-banner__heading">&lt;span&gt;This publication was withdrawn on 7 March 2014.&lt;/span&gt;</p>'
+      )
     })
 
     it('renders content as html', () => {
       const $ = render('notification-banner', examples['with text as html'])
       const $contentHtml = $('.govuk-notification-banner__content')
 
-      expect($contentHtml.html().trim()).toEqual('<h3 class="govuk-notification-banner__heading">This publication was withdrawn on 7 March 2014</h3><p class="govuk-body">Archived and replaced by the <a href="#" class="govuk-notification-banner__link">new planning guidance</a> launched 6 March 2014 on an external website</p>')
+      expect($contentHtml.html().trim()).toEqual(outdent`
+        <h3 class="govuk-notification-banner__heading">
+          This publication was withdrawn on 7 March 2014
+        </h3>
+        <p class="govuk-body">Archived and replaced by the <a href="#" class="govuk-notification-banner__link">new planning guidance</a> launched 6 March 2014 on an external website</p>
+      `)
     })
   })
 
@@ -189,7 +213,9 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples['with type as success'])
 
       const $component = $('.govuk-notification-banner')
-      expect($component.hasClass('govuk-notification-banner--success')).toBeTruthy()
+      expect(
+        $component.hasClass('govuk-notification-banner--success')
+      ).toBeTruthy()
     })
 
     it('has role=alert attribute', () => {
@@ -203,7 +229,9 @@ describe('Notification-banner', () => {
       const $ = render('notification-banner', examples['with type as success'])
       const $component = $('.govuk-notification-banner')
 
-      expect($component.attr('aria-labelledby')).toEqual('govuk-notification-banner-title')
+      expect($component.attr('aria-labelledby')).toEqual(
+        'govuk-notification-banner-title'
+      )
     })
 
     it('renders a title id for aria-labelledby', () => {
@@ -221,7 +249,10 @@ describe('Notification-banner', () => {
     })
 
     it('renders custom title id and aria-labelledby', () => {
-      const $ = render('notification-banner', examples['custom title id with type as success'])
+      const $ = render(
+        'notification-banner',
+        examples['custom title id with type as success']
+      )
       const $component = $('.govuk-notification-banner')
       const $title = $('.govuk-notification-banner__title')
 
